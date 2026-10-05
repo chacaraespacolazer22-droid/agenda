@@ -1,0 +1,1274 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#173a2a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Agenda">
+<title>Agenda | Chácara Espaço Lazer</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23173a2a'/%3E%3Ctext x='32' y='43' font-family='Georgia,serif' font-size='30' font-weight='700' text-anchor='middle' fill='%23dcc28a'%3EEL%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --verde:#173a2a; --verde-2:#24513c; --verde-suave:#e4ebdf;
+  --creme:#f5eedf; --papel:#fdfaf3; --linha:#e2d8c2;
+  --ouro:#a87f32; --ouro-claro:#dcc28a;
+  --tinta:#1b2a21; --tinta-2:#5a685e;
+  --perigo:#a63d31;
+  --c-consulta:#6f7a84;  --f-consulta:#eceef0;
+  --c-pre_reserva:#b87708; --f-pre_reserva:#fbeecf;
+  --c-sinal_pago:#2c6a99; --f-sinal_pago:#dfecf6;
+  --c-quitado:#2c7a4c;   --f-quitado:#dcefe2;
+  --c-realizado:#173a2a; --f-realizado:#d5ddd6;
+  --c-cancelado:#a63d31; --f-cancelado:#f6e1dd;
+  --serif:'Cormorant Garamond',Georgia,'Times New Roman',serif;
+  --sans:'Figtree',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --raio:14px;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--creme);color:var(--tinta);font:16px/1.45 var(--sans);-webkit-font-smoothing:antialiased}
+h1,h2,h3,p,ul,dl,dd{margin:0}
+ul{padding:0;list-style:none}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer;background:none;border:0;padding:0;text-align:inherit}
+a{color:var(--verde-2)}
+:focus-visible{outline:3px solid var(--ouro);outline-offset:2px}
+.num{font-variant-numeric:tabular-nums}
+
+/* ---------- estrutura ---------- */
+.lado{display:contents}
+.topo{background:var(--verde);color:var(--creme);display:flex;align-items:center;justify-content:space-between;padding:14px 16px 12px;padding-top:calc(14px + env(safe-area-inset-top))}
+.marca-nome{display:flex;flex-direction:column;line-height:1}
+.marca-nome small{font:600 10px/1 var(--sans);letter-spacing:.42em;color:var(--ouro-claro);margin-bottom:5px}
+.marca-nome span{font:600 23px/1 var(--serif);letter-spacing:.06em}
+.bt-menu{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;color:var(--ouro-claro);border:1px solid rgba(220,194,138,.4)}
+.bt-menu svg{width:22px;height:22px}
+#tela{padding:0 16px 150px;max-width:760px;margin:0 auto}
+.nav{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--verde);display:flex;padding-bottom:env(safe-area-inset-bottom);box-shadow:0 -6px 18px rgba(23,58,42,.18)}
+.nav a{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:9px 4px 8px;color:#b9c7bd;text-decoration:none;font-size:12px;font-weight:500;position:relative;min-height:58px}
+.nav svg{width:24px;height:24px}
+.nav a[aria-current=page]{color:var(--ouro-claro)}
+.nav a[aria-current=page]::before{content:"";position:absolute;top:0;left:28%;right:28%;height:3px;border-radius:0 0 3px 3px;background:var(--ouro-claro)}
+.nav .selo{position:absolute;top:5px;left:calc(50% + 6px);min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:var(--ouro-claro);color:var(--verde);font-size:11px;font-weight:700;line-height:18px;text-align:center}
+.nova{position:fixed;right:16px;bottom:calc(74px + env(safe-area-inset-bottom));z-index:15;background:var(--ouro-claro);color:var(--verde);font-weight:700;padding:14px 20px;border-radius:30px;box-shadow:0 6px 18px rgba(23,58,42,.3);display:flex;align-items:center;gap:8px}
+.nova svg{width:18px;height:18px}
+
+/* ---------- capa do início ---------- */
+.capa{background:var(--verde);color:var(--creme);margin:0 -16px;padding:6px 16px 26px;border-radius:0 0 28px 28px;position:relative;overflow:hidden}
+.capa::after{content:"";position:absolute;right:-120px;bottom:-190px;width:300px;height:300px;border-radius:50%;border:1.5px solid rgba(220,194,138,.5);box-shadow:0 0 0 12px var(--verde),0 0 0 13px rgba(220,194,138,.28);pointer-events:none}
+.capa-saud{color:#c5d2c8;font-size:15px;margin-bottom:16px}
+.capa-festa{display:block;width:100%;position:relative;z-index:1}
+.capa-rot{display:block;color:var(--ouro-claro);font-weight:600;font-size:14px;margin-bottom:4px}
+.capa-data{display:block;font:600 44px/1 var(--serif);letter-spacing:.005em}
+.capa-nome{display:block;margin-top:10px;font-size:18px;font-weight:600}
+.capa-pe{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:10px;color:#c5d2c8;font-size:15px}
+.capa-vazia{font:600 26px/1.15 var(--serif);position:relative;z-index:1;max-width:14em}
+
+/* ---------- blocos e listas ---------- */
+.bloco{margin-top:26px}
+.bloco>h2,.titulo{font:700 25px/1.1 var(--serif);display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.conta{font:700 13px/1 var(--sans);background:var(--verde);color:var(--creme);border-radius:11px;padding:5px 9px}
+.grupo{margin-bottom:18px}
+.grupo h3{font:600 14px/1.2 var(--sans);color:var(--tinta-2);margin-bottom:8px}
+.cartao{background:var(--papel);border:1px solid var(--linha);border-radius:var(--raio)}
+.lista>li+li{border-top:1px solid var(--linha)}
+.tudo-certo{padding:18px;color:var(--tinta-2)}
+.lemb{padding:12px 14px}
+.lemb-corpo{display:block;width:100%}
+.lemb-corpo strong{display:block;font-weight:600}
+.lemb-corpo>span{display:block;color:var(--tinta-2);font-size:14.5px}
+.lemb-corpo .urgente{color:var(--perigo);font-weight:600}
+.lemb-acoes{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.festa{display:flex;align-items:center;gap:12px;width:100%;padding:12px 14px;min-height:64px}
+.festa-dia{flex:none;width:50px;height:54px;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--f);color:var(--c);border:1.5px solid transparent}
+.festa-dia b{font:700 25px/.95 var(--serif)}
+.festa-dia i{font-style:normal;font-size:12px;font-weight:600}
+.festa-meio{flex:1;min-width:0}
+.festa-meio strong{display:block;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.festa-meio span{display:block;color:var(--tinta-2);font-size:14px;line-height:1.3}
+.mes-rot{font:600 14px/1 var(--sans);color:var(--tinta-2);margin:20px 2px 8px}
+.vazio{padding:28px 18px;text-align:center;color:var(--tinta-2)}
+.vazio strong{display:block;font:700 23px/1.15 var(--serif);color:var(--tinta);margin-bottom:6px}
+.link{color:var(--verde-2);font-weight:600;text-decoration:underline;text-underline-offset:3px;padding:10px 2px;display:inline-block}
+
+/* ---------- status ---------- */
+.st-consulta{--c:var(--c-consulta);--f:var(--f-consulta)}
+.st-pre_reserva{--c:var(--c-pre_reserva);--f:var(--f-pre_reserva)}
+.st-sinal_pago{--c:var(--c-sinal_pago);--f:var(--f-sinal_pago)}
+.st-quitado{--c:var(--c-quitado);--f:var(--f-quitado)}
+.st-realizado{--c:var(--c-realizado);--f:var(--f-realizado)}
+.st-cancelado{--c:var(--c-cancelado);--f:var(--f-cancelado)}
+.chip{flex:none;display:inline-flex;align-items:center;gap:6px;background:var(--f);color:var(--c);font-size:13px;font-weight:600;padding:5px 10px 5px 8px;border-radius:20px;white-space:nowrap}
+.chip::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--c)}
+.chip.st-consulta::before{background:none;border:1.5px dashed var(--c)}
+.chip.st-cancelado{text-decoration:line-through}
+.capa .chip{background:rgba(253,250,243,.94)}
+
+/* ---------- botões ---------- */
+.bt{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:10px 18px;border-radius:12px;border:1.5px solid var(--verde);color:var(--verde);font-weight:600;background:transparent;text-decoration:none}
+.bt.cheio{background:var(--verde);color:var(--creme)}
+.bt.ouro{background:var(--ouro-claro);border-color:var(--ouro-claro);color:var(--verde)}
+.bt.perigo{border-color:var(--perigo);color:var(--perigo)}
+.bt.perigo.cheio{background:var(--perigo);color:#fff}
+.bt.pequeno{min-height:40px;padding:6px 14px;font-size:14.5px;border-radius:10px}
+.bt.largo{width:100%}
+.bt:disabled{opacity:.55;cursor:default}
+.bt svg{width:18px;height:18px;flex:none}
+.botoes{display:flex;gap:10px;margin-top:18px}
+.botoes .bt{flex:1}
+.icone{width:42px;height:42px;border-radius:10px;display:grid;place-items:center;color:var(--tinta-2);flex:none}
+.icone svg{width:20px;height:20px}
+
+/* ---------- calendário ---------- */
+.cal-topo{display:flex;align-items:center;justify-content:space-between;margin:18px 0 10px}
+.cal-topo h1{font:700 30px/1 var(--serif);text-transform:capitalize}
+.cal-nav{display:flex;gap:6px;align-items:center}
+.cal-nav .icone{border:1.5px solid var(--linha);background:var(--papel);color:var(--verde)}
+.cal-sem,.cal-grade{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}
+.cal-sem span{text-align:center;font-size:12.5px;font-weight:600;color:var(--tinta-2);padding:4px 0}
+.dia{position:relative;aspect-ratio:1;border-radius:12px;background:var(--papel);border:1px solid var(--linha);display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:600;font-size:16px;min-width:0;overflow:hidden}
+.dia.passado{opacity:.5}
+.dia.ocupado{background:var(--c);border-color:var(--c);color:#fff;opacity:1}
+.dia.ocupado.passado{opacity:.72}
+.dia.hoje{box-shadow:0 0 0 2.5px var(--creme),0 0 0 4.5px var(--ouro)}
+.dia .quem{display:none}
+.dia .pt{position:absolute;bottom:4px;height:6px;min-width:6px;border-radius:3px;background:var(--c-consulta)}
+.dia.ocupado .pt{background:#fff;opacity:.85}
+.dia.so-cancel .n{text-decoration:line-through;color:var(--c-cancelado)}
+.legenda{display:flex;flex-wrap:wrap;gap:6px 8px;margin-top:14px}
+
+/* ---------- filtros ---------- */
+.busca{width:100%;margin-top:18px}
+.filtros{display:flex;gap:8px;overflow-x:auto;margin:12px -16px 0;padding:2px 16px 6px;scrollbar-width:none}
+.filtros::-webkit-scrollbar{display:none}
+.filtro{flex:none;padding:9px 15px;border-radius:22px;border:1.5px solid var(--linha);background:var(--papel);font-weight:600;font-size:14.5px;color:var(--tinta-2);min-height:42px}
+.filtro[aria-pressed=true]{background:var(--verde);border-color:var(--verde);color:var(--creme)}
+
+/* ---------- ficha ---------- */
+.voltar{display:inline-flex;align-items:center;gap:6px;min-height:44px;margin-top:8px;color:var(--verde-2);font-weight:600;text-decoration:none}
+.voltar svg{width:18px;height:18px}
+.ficha-topo h1{font:700 34px/1.05 var(--serif);margin:4px 0 8px;overflow-wrap:anywhere}
+.ficha-sub{color:var(--tinta-2);margin-top:8px}
+.ficha-sub b{color:var(--tinta);font-weight:600}
+.bt-status{display:inline-flex;align-items:center;gap:8px;min-height:40px}
+.bt-status small{color:var(--verde-2);font-weight:600;font-size:14px;text-decoration:underline;text-underline-offset:3px}
+.dados{padding:4px 14px}
+.dados div{display:flex;justify-content:space-between;gap:16px;padding:11px 0}
+.dados div+div{border-top:1px solid var(--linha)}
+.dados dt{color:var(--tinta-2)}
+.dados dd{font-weight:600;text-align:right;overflow-wrap:anywhere}
+.dados .total dt,.dados .total dd{font-weight:700;color:var(--tinta)}
+.obs{padding:14px;white-space:pre-wrap;overflow-wrap:anywhere}
+.pag{display:flex;align-items:center;gap:8px;padding:12px 6px 12px 14px}
+.pag-corpo{flex:1;min-width:0}
+.pag-corpo strong{font-weight:600}
+.pag-corpo small{display:block;color:var(--tinta-2);font-size:14px}
+.pag-corpo small.urgente{color:var(--perigo);font-weight:600}
+.pag.pago .pag-corpo strong::after{content:"  pago";color:var(--c-quitado);font-weight:700}
+.serv{padding:12px 14px}
+.serv-corpo{display:block;width:100%}
+.serv-corpo strong{display:block;font-weight:600}
+.serv-corpo small{display:block;color:var(--tinta-2);font-size:14px}
+.serv-nums{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px}
+.serv-nums span{display:block;font-size:12.5px;color:var(--tinta-2)}
+.serv-nums b{display:block;font-weight:600;font-size:15px}
+.serv-nums .fica b{color:var(--c-quitado)}
+.marcas{display:flex;flex-wrap:wrap;gap:4px 18px;margin-top:8px}
+.marca{display:flex;align-items:center;gap:8px;min-height:40px;font-size:14.5px}
+.marca input{width:22px;height:22px;accent-color:var(--verde)}
+.rodape-bloco{padding:12px 14px;border-top:1px solid var(--linha)}
+.nota{color:var(--tinta-2);font-size:14.5px;margin-top:8px}
+.acoes-ficha{display:flex;gap:10px;margin-top:16px}
+.acoes-ficha .bt{flex:1}
+.zona-perigo{margin-top:34px;text-align:center}
+
+/* ---------- folhas (formulários) ---------- */
+.fundo{position:fixed;inset:0;z-index:50;background:rgba(15,32,23,.5);display:flex;align-items:flex-end;justify-content:center}
+.folha{background:var(--papel);width:100%;max-width:560px;max-height:92vh;max-height:92dvh;overflow-y:auto;border-radius:22px 22px 0 0;padding-bottom:env(safe-area-inset-bottom);transform:translateY(24px);opacity:0;transition:transform .2s ease,opacity .2s ease}
+.fundo.aberta .folha{transform:none;opacity:1}
+.folha-topo{position:sticky;top:0;z-index:1;background:var(--papel);display:flex;align-items:center;justify-content:space-between;gap:10px;padding:16px 10px 10px 18px;border-bottom:1px solid var(--linha)}
+.folha-topo h2{font:700 25px/1.1 var(--serif)}
+.folha-corpo{padding:16px 18px 22px}
+.campo{display:block;margin-bottom:14px}
+.campo>span{display:block;font-weight:600;font-size:14.5px;margin-bottom:5px}
+.campo small{display:block;color:var(--tinta-2);font-size:13.5px;margin-top:5px}
+input[type=text],input[type=tel],input[type=email],input[type=password],input[type=date],input[type=number],input[type=search],select,textarea{width:100%;min-height:48px;padding:10px 12px;border-radius:12px;border:1.5px solid #cfc4ab;background:#fff;font-size:16px}
+textarea{min-height:92px;resize:vertical}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--verde);box-shadow:0 0 0 3px rgba(168,127,50,.3)}
+.dupla{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.erro{background:var(--f-cancelado);color:var(--perigo);border-radius:10px;padding:10px 12px;margin-bottom:14px;font-weight:600}
+.fica-ao-vivo{background:var(--verde-suave);border-radius:10px;padding:10px 12px;margin-bottom:14px;font-weight:600}
+.opcao{display:flex;align-items:center;gap:12px;width:100%;padding:13px 4px;min-height:56px;text-decoration:none;color:inherit}
+.opcao strong{display:block;font-weight:600}
+.opcao span span,.opcao>span>small{display:block;color:var(--tinta-2);font-size:14px}
+.opcao .bola{flex:none;width:16px;height:16px;border-radius:50%;background:var(--c)}
+.opcao.atual{font-weight:700}
+.previa{background:#fff;border:1px solid var(--linha);border-radius:12px;padding:10px 12px;margin:2px 0 6px;font-size:14px;color:var(--tinta-2);white-space:pre-wrap}
+.pessoa{display:flex;align-items:center;gap:10px;padding:10px 0}
+.pessoa div{flex:1;min-width:0}
+.pessoa strong{display:block;font-weight:600;overflow-wrap:anywhere}
+.pessoa small{color:var(--tinta-2)}
+
+/* ---------- telas fora do app ---------- */
+#fora{min-height:100vh;min-height:100dvh;background:var(--verde);color:var(--creme);display:flex;align-items:center;justify-content:center;padding:28px 22px;position:relative;overflow:hidden}
+#fora::before{content:"";position:absolute;left:-150px;top:-180px;width:380px;height:380px;border-radius:50%;border:1.5px solid rgba(220,194,138,.5);box-shadow:0 0 0 14px var(--verde),0 0 0 15px rgba(220,194,138,.28)}
+#fora::after{content:"";position:absolute;right:-190px;bottom:-230px;width:420px;height:420px;border-radius:50%;border:1.5px solid rgba(220,194,138,.5);box-shadow:0 0 0 14px var(--verde),0 0 0 15px rgba(220,194,138,.28)}
+.porta{width:100%;max-width:380px;position:relative;z-index:1}
+.porta-marca{text-align:center;margin-bottom:28px}
+.porta-marca svg{width:46px;height:46px;color:var(--ouro-claro)}
+.porta-marca small{display:block;font:600 12px/1 var(--sans);letter-spacing:.5em;color:var(--ouro-claro);margin:10px 0 8px;padding-left:.5em}
+.porta-marca span{display:block;font:600 36px/1 var(--serif);letter-spacing:.06em}
+.porta-marca i{display:block;font-style:normal;color:#c5d2c8;margin-top:12px}
+.porta form,.porta .caixa{background:var(--papel);color:var(--tinta);border-radius:18px;padding:20px 18px}
+.porta .caixa h1{font:700 26px/1.1 var(--serif);margin-bottom:8px}
+.porta .caixa p{margin-bottom:12px}
+.porta .caixa code{background:var(--verde-suave);padding:2px 6px;border-radius:6px;overflow-wrap:anywhere}
+.porta-pe{text-align:center;color:#c5d2c8;font-size:14px;margin-top:16px}
+.gira{width:34px;height:34px;border-radius:50%;border:3px solid rgba(220,194,138,.3);border-top-color:var(--ouro-claro);animation:gira .8s linear infinite;margin:0 auto}
+@keyframes gira{to{transform:rotate(360deg)}}
+
+/* ---------- avisos ---------- */
+#avisos{position:fixed;left:12px;right:12px;bottom:calc(140px + env(safe-area-inset-bottom));z-index:80;display:flex;flex-direction:column;align-items:center;gap:8px;pointer-events:none}
+.aviso{background:var(--tinta);color:#fff;padding:11px 16px;border-radius:12px;font-weight:500;box-shadow:0 8px 22px rgba(0,0,0,.25);max-width:460px}
+.aviso.ruim{background:var(--perigo)}
+
+/* ---------- computador ---------- */
+@media (min-width:900px){
+  #app{display:grid;grid-template-columns:236px 1fr;min-height:100vh}
+  .lado{display:flex;flex-direction:column;background:var(--verde);position:sticky;top:0;height:100vh}
+  .topo{padding:26px 22px 22px;flex-direction:column;align-items:flex-start;gap:18px}
+  .marca-nome span{font-size:23px;white-space:nowrap}
+  .bt-menu{width:auto;height:auto;border-radius:10px;padding:8px 12px;gap:8px;display:flex;font-size:14px}
+  .bt-menu::after{content:"Conta e acesso"}
+  .nav{position:static;flex-direction:column;box-shadow:none;padding:0 12px;gap:4px}
+  .nav a{flex:none;flex-direction:row;gap:12px;padding:12px 12px;border-radius:10px;font-size:15.5px;min-height:0}
+  .nav a[aria-current=page]{background:rgba(220,194,138,.13)}
+  .nav a[aria-current=page]::before{display:none}
+  .nav .selo{position:static;margin-left:auto}
+  #tela{padding:8px 36px 110px;max-width:880px;margin:0;width:100%}
+  .capa{margin:22px 0 0;border-radius:24px;padding:26px 28px 30px}
+  .capa-data{font-size:56px}
+  .nova{bottom:28px;right:32px}
+  #avisos{bottom:96px}
+  .fundo{align-items:center;padding:24px}
+  .folha{border-radius:22px;max-height:88vh}
+  .dia{aspect-ratio:auto;min-height:84px;align-items:flex-start;justify-content:flex-start;padding:8px 9px;text-align:left}
+  .dia .quem{display:block;font-size:12.5px;font-weight:500;line-height:1.2;margin-top:3px;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .dia .pt{left:9px;bottom:7px}
+  .cal-topo h1{font-size:38px}
+}
+@media (prefers-reduced-motion:reduce){.folha{transition:none}.gira{animation-duration:2.4s}}
+</style>
+</head>
+<body>
+
+<div id="fora"><div class="porta"><div class="gira" role="status" aria-label="Carregando"></div></div></div>
+
+<div id="app" hidden>
+  <aside class="lado">
+    <header class="topo">
+      <div class="marca-nome"><small>CHÁCARA</small><span>ESPAÇO LAZER</span></div>
+      <button class="bt-menu" data-a="menu" aria-label="Conta e acesso">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8.5" r="3.6"/><path d="M4.8 20c.9-3.6 3.8-5.4 7.2-5.4s6.3 1.800 7.2 5.4"/></svg>
+      </button>
+    </header>
+    <nav class="nav" aria-label="Seções">
+      <a href="#/inicio" data-aba="inicio"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11.200 12 4.500l8 6.700"/><path d="M6.200 9.800V19.500h11.600V9.800"/><path d="M10 19.500v-5h4v5"/></svg><span>Início</span><b class="selo" id="selo" hidden></b></a>
+      <a href="#/calendario" data-aba="calendario"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5.500" width="16" height="14.500" rx="2.500"/><path d="M4 10h16M8.500 3.500v4M15.500 3.500v4"/></svg><span>Calendário</span></a>
+      <a href="#/festas" data-aba="festas"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15.500c3.300 0 5.500-2.800 5.500-6.200S15.300 3.500 12 3.500 6.500 5.900 6.500 9.300s2.200 6.200 5.500 6.200Z"/><path d="M12 15.500v1.200m0 0c0 1.600 1.600 1.300 1.600 2.600 0 .9-.8 1.200-1.600 1.200"/></svg><span>Festas</span></a>
+      <a href="#/servicos" data-aba="servicos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.500 17.500h17"/><path d="M5.500 17.500a6.500 6.500 0 0 1 13 0"/><path d="M12 11V9"/><circle cx="12" cy="8" r="1"/></svg><span>Serviços</span></a>
+    </nav>
+  </aside>
+  <main id="tela"></main>
+  <button class="nova" id="nova" data-a="nova-festa"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Nova festa</button>
+</div>
+
+<div id="avisos" aria-live="polite"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2/dist/umd/supabase.js"></script>
+<script>
+'use strict';
+/* ============================================================
+   Agenda Chácara Espaço Lazer — versão 1
+   Os dados ficam no Supabase; aqui só há código e a chave pública.
+   ============================================================ */
+const URL_BANCO = 'https://azcookkgydveyphvmrav.supabase.co';
+const CHAVE_PUBLICA = 'sb_publishable_SPCTUi_nMqIRtVISaG0AMw_GPywtpd_';
+const VALOR_LOCACAO_PADRAO = 2000;
+const DIAS_SALDO_ANTES = 10;
+const TIPOS = ['Aniversário infantil', 'Aniversário de 1 ano', 'Aniversário adulto', 'Chá de bebê', 'Chá revelação', 'Confraternização', 'Evento empresarial', 'Casamento'];
+const FORMAS = ['Pix', 'Dinheiro', 'Cartão', 'Transferência'];
+
+const STATUS = {
+  consulta:    { nome: 'Consulta',    dica: 'Só perguntou. Não ocupa a data.' },
+  pre_reserva: { nome: 'Pré-reserva', dica: 'Data travada, aguardando o sinal.' },
+  sinal_pago:  { nome: 'Sinal pago',  dica: 'Sinal recebido, falta o saldo.' },
+  quitado:     { nome: 'Quitado',     dica: 'Tudo pago, aguardando a festa.' },
+  realizado:   { nome: 'Realizado',   dica: 'A festa já aconteceu.' },
+  cancelado:   { nome: 'Cancelado',   dica: 'Libera a data.' },
+};
+const RESERVA = ['pre_reserva', 'sinal_pago', 'quitado', 'realizado']; // ocupam a data
+const ATIVAS = ['pre_reserva', 'sinal_pago', 'quitado'];               // ainda vão acontecer
+
+const MESES = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'];
+const MESES_C = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'];
+const SEM = ['domingo', 'segunda-feira', 'terça-feira', 'quarta-feira', 'quinta-feira', 'sexta-feira', 'sábado'];
+const SEM_C = ['dom', 'seg', 'ter', 'qua', 'qui', 'sex', 'sáb'];
+
+/* ---------- utilidades ---------- */
+const $ = (s, r = document) => r.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const p2 = n => String(n).padStart(2, '0');
+const iso = d => `${d.getFullYear()}-${p2(d.getMonth() + 1)}-${p2(d.getDate())}`;
+const hoje = () => iso(new Date());
+const dt = s => { const [a, m, d] = String(s).slice(0, 10).split('-').map(Number); return new Date(a, m - 1, d); };
+const addDias = (s, n) => { const d = dt(s); d.setDate(d.getDate() + n); return iso(d); };
+const diasAte = s => Math.round((dt(s) - dt(hoje())) / 864e5);
+const fData = s => { const d = dt(s); return `${p2(d.getDate())}/${p2(d.getMonth() + 1)}/${d.getFullYear()}`; };
+const fDataCurta = s => { const d = dt(s); return `${p2(d.getDate())}/${p2(d.getMonth() + 1)}`; };
+const fDataLonga = s => { const d = dt(s); return `${SEM[d.getDay()]}, ${d.getDate()} de ${MESES[d.getMonth()]}${d.getFullYear() !== new Date().getFullYear() ? ' de ' + d.getFullYear() : ''}`; };
+const plural = (n, um, varios) => `${n} ${n === 1 ? um : varios}`;
+function quando(s) {
+  const n = diasAte(s);
+  if (n === 0) return 'hoje';
+  if (n === 1) return 'amanhã';
+  if (n === -1) return 'ontem';
+  return n > 0 ? `em ${n} dias` : `há ${-n} dias`;
+}
+const num = v => Number(v || 0);
+const arred = n => Math.round(n * 100) / 100;
+const brl = n => num(n).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: Number.isInteger(num(n)) ? 0 : 2 });
+const valorCampo = n => (n === null || n === undefined || n === '') ? '' : String(num(n)).replace('.', ',');
+function lerValor(txt) {
+  let s = String(txt ?? '').replace(/[^\d.,]/g, '');
+  if (!s) return null;
+  if (s.includes(',')) s = s.replace(/\./g, '').replace(',', '.');
+  else if (/^\d{1,3}(\.\d{3})+$/.test(s)) s = s.replace(/\./g, '');
+  const n = parseFloat(s);
+  return Number.isFinite(n) ? arred(n) : null;
+}
+const limpo = s => { s = String(s ?? '').trim(); return s === '' ? null : s; };
+const primeiroNome = s => String(s || '').trim().split(/\s+/)[0] || '';
+function numeroWhats(tel) {
+  let d = String(tel || '').replace(/\D/g, '').replace(/^0+/, '');
+  if (d.length === 10 || d.length === 11) d = '55' + d;
+  return d.length >= 12 ? d : null;
+}
+function fTel(tel) {
+  const d = String(tel || '').replace(/\D/g, '');
+  if (d.length === 11) return `(${d.slice(0, 2)}) ${d.slice(2, 7)}-${d.slice(7)}`;
+  if (d.length === 10) return `(${d.slice(0, 2)}) ${d.slice(2, 6)}-${d.slice(6)}`;
+  return String(tel || '');
+}
+const linkWhats = (tel, texto) => { const n = numeroWhats(tel); return n ? `https://wa.me/${n}${texto ? '?text=' + encodeURIComponent(texto) : ''}` : null; };
+
+const I = {
+  zap: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4.500 19.500l1.200-3.900A7.800 7.800 0 1 1 8.700 18.400Z"/><path d="M9.300 9.400c.300 2.400 2.600 4.600 5 5"/></svg>',
+  lapis: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19l.8-3.800L15.600 5.400a1.700 1.700 0 0 1 2.400 0l.6.6a1.700 1.700 0 0 1 0 2.400L8.800 18.200Z"/></svg>',
+  esq: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.500 5.500 8 12l6.500 6.500"/></svg>',
+  dir: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.500 5.500 16 12l-6.500 6.500"/></svg>',
+  folha: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M24 44V20"/><path d="M24 20c0-8 4-13 10-15 1 7-2 13-10 15Z"/><path d="M24 28c-1-7-6-11-12-12 0 7 4 11 12 12Z"/><path d="M24 36c1-6 6-9 12-9-1 6-5 9-12 9Z"/></svg>',
+};
+
+/* ---------- estado ---------- */
+let sb = null;
+const E = {
+  fase: 'carregando', usuario: null, erro: null,
+  usuarios: [], festas: [], servicos: [], itens: [], pagamentos: [],
+  mes: (() => { const d = new Date(); return { ano: d.getFullYear(), mes: d.getMonth() }; })(),
+  filtro: 'proximas', busca: '',
+};
+const festaDe = id => E.festas.find(f => f.id === id);
+const pagsDe = id => E.pagamentos.filter(p => p.festa_id === id).sort((a, b) => (a.tipo === 'sinal' ? 0 : 1) - (b.tipo === 'sinal' ? 0 : 1));
+const itensDe = id => E.itens.filter(i => i.festa_id === id);
+const troca = (lista, reg) => { const i = E[lista].findIndex(x => x.id === reg.id); if (i >= 0) E[lista][i] = reg; else E[lista].push(reg); };
+const ordenaFestas = () => E.festas.sort((a, b) => a.data.localeCompare(b.data) || a.criado_em.localeCompare(b.criado_em));
+
+class Amigavel extends Error {}
+async function q(consulta) { const { data, error } = await consulta; if (error) throw error; return data; }
+
+async function buscarTudo() {
+  const [usuarios, festas, servicos, itens, pagamentos] = await Promise.all([
+    q(sb.from('usuarios').select('*').order('email')),
+    q(sb.from('festas').select('*').order('data', { ascending: false })),
+    q(sb.from('servicos').select('*').order('ordem').order('nome')),
+    q(sb.from('festa_servicos').select('*').order('criado_em')),
+    q(sb.from('pagamentos').select('*')),
+  ]);
+  return { usuarios, festas, servicos, itens, pagamentos };
+}
+function aplicar(d) { Object.assign(E, d); ordenaFestas(); }
+
+function msgErro(e) {
+  const m = String((e && (e.message || e.error_description)) || e || '');
+  if (e && e.code === '23505') return m.includes('festas_data_reservada') ? 'Essa data já está reservada para outra festa.' : 'Esse registro já existe.';
+  if (/failed to fetch|networkerror|load failed/i.test(m)) return 'Sem conexão. Confira a internet e tente de novo.';
+  if (/jwt|token/i.test(m) && /expired|invalid/i.test(m)) return 'Sua sessão venceu. Saia e entre de novo.';
+  if (/invalid login credentials/i.test(m)) return 'E-mail ou senha incorretos.';
+  if (/row-level security/i.test(m)) return 'Seu acesso não permite essa alteração.';
+  return 'Não deu certo: ' + m;
+}
+
+/* ---------- avisos ---------- */
+function aviso(texto, ruim) {
+  const el = document.createElement('div');
+  el.className = 'aviso' + (ruim ? ' ruim' : '');
+  el.textContent = texto;
+  $('#avisos').appendChild(el);
+  setTimeout(() => el.remove(), ruim ? 6000 : 3200);
+}
+
+/* ---------- folhas (janelas de formulário) ---------- */
+const pilha = [];
+let aoVoltar = null, resolveConfirma = null;
+
+function abrirFolha(titulo, corpo, opc = {}) {
+  const el = document.createElement('div');
+  el.className = 'fundo';
+  if (opc.confirma) el.dataset.confirma = '1';
+  el.innerHTML = `<section class="folha" role="dialog" aria-modal="true" aria-label="${esc(titulo)}" tabindex="-1">
+    <header class="folha-topo"><h2>${esc(titulo)}</h2>
+      <button class="icone" data-a="fechar" aria-label="Fechar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    </header><div class="folha-corpo">${corpo}</div></section>`;
+  document.body.appendChild(el);
+  pilha.push(el);
+  history.pushState({ folha: pilha.length }, '');
+  requestAnimationFrame(() => { el.classList.add('aberta'); $('.folha', el).focus({ preventScroll: true }); });
+  return el;
+}
+function tiraFolhasAte(alvo) {
+  while (pilha.length > alvo) {
+    const el = pilha.pop();
+    el.remove();
+    if (el.dataset.confirma && resolveConfirma) { const r = resolveConfirma; resolveConfirma = null; r(false); }
+  }
+}
+function fecharFolha() {
+  return new Promise(res => {
+    if (!pilha.length) return res();
+    const alvo = pilha.length - 1;
+    let feito = false;
+    const fim = () => { if (feito) return; feito = true; aoVoltar = null; tiraFolhasAte(alvo); res(); };
+    aoVoltar = fim;
+    setTimeout(fim, 600);
+    history.back();
+  });
+}
+async function fecharTudo() { while (pilha.length) await fecharFolha(); }
+function confirmar(titulo, texto, rotulo, perigo) {
+  return new Promise(res => {
+    resolveConfirma = res;
+    abrirFolha(titulo, `<p>${esc(texto)}</p><div class="botoes">
+      <button class="bt" data-a="fechar">Voltar</button>
+      <button class="bt cheio ${perigo ? 'perigo' : ''}" data-a="confirma-sim">${esc(rotulo)}</button></div>`, { confirma: true });
+  });
+}
+function erroForm(form, texto) {
+  const el = $('.erro', form);
+  if (el) { el.textContent = texto; el.hidden = false; el.scrollIntoView({ block: 'nearest' }); } else aviso(texto, true);
+}
+
+/* ---------- rotas ---------- */
+let rotaDesenhada = null;
+const rolagem = {};
+function rota() {
+  const [a, b] = location.hash.replace(/^#\/?/, '').split('/');
+  if (a === 'festa' && b) return { aba: 'festa', id: b };
+  return { aba: ['inicio', 'calendario', 'festas', 'servicos'].includes(a) ? a : 'inicio' };
+}
+function ir(hash) { if (location.hash === hash) desenhar(); else location.hash = hash; }
+function sincronizar() {
+  tiraFolhasAte((history.state && history.state.folha) || 0);
+  if (aoVoltar) aoVoltar();
+  if (E.fase === 'app' && location.hash !== rotaDesenhada) {
+    if (rotaDesenhada !== null) rolagem[rotaDesenhada] = window.scrollY;
+    desenhar();
+    window.scrollTo(0, rolagem[location.hash] || 0);
+  }
+}
+window.addEventListener('popstate', sincronizar);
+window.addEventListener('hashchange', sincronizar);
+
+/* ---------- lembretes ---------- */
+function lembretes() {
+  const L = { pag: [], parc: [], ofer: [], fechar: [] };
+  for (const f of E.festas) {
+    if (!ATIVAS.includes(f.status)) continue;
+    const d = diasAte(f.data);
+    for (const p of pagsDe(f.id)) {
+      if (p.pago) continue;
+      const dv = diasAte(p.vencimento);
+      if (dv <= 7) L.pag.push({ f, p, dv });
+    }
+    if (d < 0) { L.fechar.push({ f }); continue; }
+    for (const it of itensDe(f.id)) {
+      if (d <= 2) { if (!it.confirmado_2d) L.parc.push({ f, it, etapa: '2d', d }); }
+      else if (d <= 7 && !it.confirmado_7d) L.parc.push({ f, it, etapa: '7d', d });
+    }
+    if (d >= 20 && d <= 45 && !f.oferta_servicos_em) L.ofer.push({ f, d });
+  }
+  L.pag.sort((a, b) => a.dv - b.dv);
+  L.total = L.pag.length + L.parc.length + L.ofer.length + L.fechar.length;
+  return L;
+}
+
+/* ---------- mensagens de WhatsApp ---------- */
+function mensagens(f) {
+  const nome = primeiroNome(f.cliente_nome);
+  const pags = pagsDe(f.id), sinal = pags.find(p => p.tipo === 'sinal'), saldo = pags.find(p => p.tipo === 'saldo');
+  const loc = num(f.valor_locacao);
+  const vSinal = sinal ? num(sinal.valor) : arred(loc / 2);
+  const vSaldo = saldo ? num(saldo.valor) : arred(loc - vSinal);
+  const vencSaldo = saldo ? saldo.vencimento : addDias(f.data, -DIAS_SALDO_ANTES);
+  const dia = `${SEM[dt(f.data).getDay()]}, ${fData(f.data)}`;
+  const servs = E.servicos.filter(s => s.ativo).map(s => s.nome.toLowerCase());
+  const listaServ = servs.length > 1 ? servs.slice(0, -1).join(', ') + ' e ' + servs[servs.length - 1] : servs.join('');
+  const d = diasAte(f.data);
+  const lista = [
+    { id: 'reserva', titulo: 'Confirmar a reserva',
+      texto: `Oi, ${nome}! Aqui é da Chácara Espaço Lazer 🌴\n\nSua data está pré-reservada: ${dia}.\n\nPara garantir a reserva, o sinal é de ${brl(vSinal)}. O restante, ${brl(vSaldo)}, fica para até ${fData(vencSaldo)}.\n\nQualquer dúvida é só me chamar!` },
+    { id: 'saldo', titulo: 'Lembrar do saldo',
+      texto: `Oi, ${nome}! Tudo bem? Sua festa na Chácara Espaço Lazer está chegando, ${dia} 🎉\n\nPassando para lembrar do saldo de ${brl(vSaldo)}, com vencimento em ${fData(vencSaldo)}.\n\nQualquer dúvida é só me chamar!` },
+  ];
+  if (servs.length) lista.push({ id: 'oferta', titulo: 'Oferecer serviços',
+    texto: `Oi, ${nome}! Tudo bem? ${d > 1 ? `Faltam ${d} dias para a sua festa` : 'Sua festa'} na Chácara Espaço Lazer 🎉\n\nAgora a gente também pode cuidar de alguns serviços para você: ${listaServ}.\n\nQuer que eu te mande os valores?` });
+  return lista;
+}
+
+/* ============================================================
+   TELAS
+   ============================================================ */
+const chip = s => `<span class="chip st-${s}">${STATUS[s].nome}</span>`;
+
+function linhaFesta(f) {
+  const d = dt(f.data);
+  const sub = [SEM_C[d.getDay()], f.tipo_evento, f.convidados ? plural(f.convidados, 'convidado', 'convidados') : null].filter(Boolean).join(', ');
+  return `<li><button class="festa" data-a="ficha" data-id="${f.id}">
+    <span class="festa-dia st-${f.status}"><b>${d.getDate()}</b><i>${MESES_C[d.getMonth()]}</i></span>
+    <span class="festa-meio"><strong>${esc(f.cliente_nome)}</strong><span>${esc(sub)}</span></span>
+    ${chip(f.status)}</button></li>`;
+}
+
+function vInicio() {
+  const h = hoje();
+  const prox = E.festas.filter(f => ATIVAS.includes(f.status) && f.data >= h);
+  const d = prox[0];
+  const L = lembretes();
+  const hr = new Date().getHours();
+  const saud = hr < 12 ? 'Bom dia' : hr < 18 ? 'Boa tarde' : 'Boa noite';
+  const dl = fDataLonga(h);
+
+  const gPag = L.pag.map(({ f, p, dv }) => {
+    const prazo = dv < 0 ? `Venceu ${quando(p.vencimento)}` : dv === 0 ? 'Vence hoje' : `Vence ${quando(p.vencimento)}`;
+    const msg = mensagens(f).find(m => m.id === (p.tipo === 'sinal' ? 'reserva' : 'saldo'));
+    const link = linkWhats(f.cliente_telefone, msg.texto);
+    return `<li class="lemb"><button class="lemb-corpo" data-a="ficha" data-id="${f.id}">
+      <strong>${p.tipo === 'sinal' ? 'Sinal' : 'Saldo'} de ${brl(p.valor)}, ${esc(f.cliente_nome)}</strong>
+      <span><span class="${dv <= 0 ? 'urgente' : ''}">${prazo}.</span> Festa em ${fDataCurta(f.data)}.</span></button>
+      <div class="lemb-acoes">${link ? `<a class="bt pequeno" href="${esc(link)}" target="_blank" rel="noopener">${I.zap}Lembrar cliente</a>` : ''}
+      <button class="bt pequeno cheio" data-a="pagar" data-id="${p.id}">Marcar pago</button></div></li>`;
+  }).join('');
+
+  const gParc = L.parc.map(({ f, it, etapa, d }) => `<li class="lemb"><button class="lemb-corpo" data-a="ficha" data-id="${f.id}">
+      <strong>${esc(it.servico_nome)}${it.parceiro ? ' com ' + esc(it.parceiro) : ''}</strong>
+      <span><span class="${etapa === '2d' ? 'urgente' : ''}">Festa ${quando(f.data)}</span>, ${esc(f.cliente_nome)}.${it.parceiro ? '' : ' Parceiro ainda não definido.'}</span></button>
+      <div class="lemb-acoes"><button class="bt pequeno cheio" data-a="confirmar-parceiro" data-id="${it.id}" data-etapa="${etapa}">Parceiro confirmou</button></div></li>`).join('');
+
+  const gOfer = L.ofer.map(({ f, d }) => {
+    const msg = mensagens(f).find(m => m.id === 'oferta');
+    const link = msg && linkWhats(f.cliente_telefone, msg.texto);
+    return `<li class="lemb"><button class="lemb-corpo" data-a="ficha" data-id="${f.id}">
+      <strong>${esc(f.cliente_nome)}</strong><span>Festa em ${fDataCurta(f.data)}, faltam ${d} dias.</span></button>
+      <div class="lemb-acoes">${link ? `<a class="bt pequeno" href="${esc(link)}" target="_blank" rel="noopener">${I.zap}Oferecer</a>` : ''}
+      <button class="bt pequeno cheio" data-a="ja-ofereci" data-id="${f.id}">Já ofereci</button></div></li>`;
+  }).join('');
+
+  const gFechar = L.fechar.map(({ f }) => `<li class="lemb"><button class="lemb-corpo" data-a="ficha" data-id="${f.id}">
+      <strong>${esc(f.cliente_nome)}</strong><span>A festa foi ${quando(f.data)}, em ${fDataCurta(f.data)}.</span></button>
+      <div class="lemb-acoes"><button class="bt pequeno cheio" data-a="marcar-realizada" data-id="${f.id}">Marcar como realizada</button></div></li>`).join('');
+
+  const grupo = (titulo, itens) => itens ? `<div class="grupo"><h3>${titulo}</h3><ul class="cartao lista">${itens}</ul></div>` : '';
+  const outras = prox.slice(1, 6);
+
+  return `<section class="capa">
+      <p class="capa-saud">${saud}. Hoje é ${dl}.</p>
+      ${d ? `<button class="capa-festa" data-a="ficha" data-id="${d.id}">
+        <span class="capa-rot">Próxima festa</span>
+        <strong class="capa-data">${dt(d.data).getDate()} de ${MESES[dt(d.data).getMonth()]}</strong>
+        <span class="capa-nome">${esc(d.cliente_nome)}</span>
+        <span class="capa-pe">${chip(d.status)}<span>${SEM[dt(d.data).getDay()]}, ${quando(d.data)}</span></span>
+      </button>` : `<p class="capa-vazia">Nenhuma festa reservada pela frente.</p>`}
+    </section>
+    <section class="bloco"><h2>Para fazer${L.total ? `<span class="conta">${L.total}</span>` : ''}</h2>
+      ${L.total ? grupo('Pagamentos a receber', gPag) + grupo('Confirmar com parceiros', gParc) + grupo('Oferecer serviços', gOfer) + grupo('Festas que já passaram', gFechar)
+        : `<div class="cartao tudo-certo">Nada pendente por enquanto. Pagamentos, parceiros e clientes para oferecer serviços aparecem aqui na hora certa.</div>`}
+    </section>
+    ${outras.length ? `<section class="bloco"><h2>Depois dela</h2><ul class="cartao lista">${outras.map(linhaFesta).join('')}</ul>
+      <a class="link" href="#/festas">Ver todas as festas</a></section>` : ''}`;
+}
+
+function vCalendario() {
+  const { ano, mes } = E.mes;
+  const h = hoje();
+  const inicio = new Date(ano, mes, 1).getDay();
+  const nDias = new Date(ano, mes + 1, 0).getDate();
+  const prefixo = `${ano}-${p2(mes + 1)}-`;
+  const doMes = E.festas.filter(f => f.data.startsWith(prefixo));
+  let celulas = '<span></span>'.repeat(inicio);
+  for (let n = 1; n <= nDias; n++) {
+    const data = prefixo + p2(n);
+    const fs = doMes.filter(f => f.data === data);
+    const res = fs.find(f => RESERVA.includes(f.status));
+    const consultas = fs.filter(f => f.status === 'consulta').length;
+    const soCancel = !res && !consultas && fs.length > 0;
+    const cls = ['dia', res ? 'ocupado st-' + res.status : '', data === h ? 'hoje' : '', data < h ? 'passado' : '', soCancel ? 'so-cancel' : ''].filter(Boolean).join(' ');
+    const rot = `${n} de ${MESES[mes]}` + (res ? `, ${STATUS[res.status].nome}, ${res.cliente_nome}` : ', livre') + (consultas ? `, ${plural(consultas, 'consulta', 'consultas')}` : '');
+    celulas += `<button class="${cls}" data-a="dia" data-data="${data}" aria-label="${esc(rot)}">
+      <span class="n">${n}</span>${res ? `<span class="quem">${esc(primeiroNome(res.cliente_nome))}</span>` : ''}
+      ${consultas ? `<i class="pt" style="width:${6 + (Math.min(consultas, 3) - 1) * 6}px"></i>` : ''}</button>`;
+  }
+  const lista = doMes.filter(f => f.status !== 'cancelado');
+  return `<div class="cal-topo"><h1>${MESES[mes]} ${ano}</h1>
+      <div class="cal-nav"><button class="bt pequeno" data-a="mes-hoje">Hoje</button>
+        <button class="icone" data-a="mes" data-passo="-1" aria-label="Mês anterior">${I.esq}</button>
+        <button class="icone" data-a="mes" data-passo="1" aria-label="Próximo mês">${I.dir}</button></div></div>
+    <div class="cal-sem" aria-hidden="true">${['D', 'S', 'T', 'Q', 'Q', 'S', 'S'].map(l => `<span>${l}</span>`).join('')}</div>
+    <div class="cal-grade">${celulas}</div>
+    <div class="legenda">${Object.keys(STATUS).map(chip).join('')}</div>
+    <p class="nota">Toque em um dia para ver ou lançar uma festa. O ponto embaixo do número indica consultas para aquela data.</p>
+    <section class="bloco"><h2>Neste mês</h2>
+      ${lista.length ? `<ul class="cartao lista">${lista.map(linhaFesta).join('')}</ul>` : `<div class="cartao vazio">Nenhuma festa lançada em ${MESES[mes]}.</div>`}
+    </section>`;
+}
+
+const FILTROS = [['proximas', 'Próximas'], ['passadas', 'Passadas'], ['consulta', 'Consultas'], ['cancelado', 'Canceladas'], ['todas', 'Todas']];
+function listaFestas() {
+  const h = hoje(), b = E.busca.trim().toLowerCase(), bd = b.replace(/\D/g, '');
+  let fs = E.festas.filter(f => {
+    if (E.filtro === 'proximas') return f.data >= h && f.status !== 'cancelado';
+    if (E.filtro === 'passadas') return f.data < h && f.status !== 'cancelado';
+    if (E.filtro === 'consulta' || E.filtro === 'cancelado') return f.status === E.filtro;
+    return true;
+  });
+  if (b) fs = fs.filter(f => f.cliente_nome.toLowerCase().includes(b) || (bd.length >= 3 && String(f.cliente_telefone || '').replace(/\D/g, '').includes(bd)));
+  if (E.filtro !== 'proximas') fs = fs.slice().reverse();
+  if (!fs.length) {
+    return `<div class="cartao vazio"><strong>${b ? 'Nada encontrado' : 'Nenhuma festa aqui'}</strong>${b ? 'Confira o nome ou o telefone digitado.' : 'Use o botão Nova festa para lançar a primeira.'}</div>`;
+  }
+  let html = '', mesAtual = '';
+  for (const f of fs) {
+    const d = dt(f.data), chave = `${MESES[d.getMonth()]} de ${d.getFullYear()}`;
+    if (chave !== mesAtual) { html += (mesAtual ? '</ul>' : '') + `<h3 class="mes-rot">${chave[0].toUpperCase() + chave.slice(1)}</h3><ul class="cartao lista">`; mesAtual = chave; }
+    html += linhaFesta(f);
+  }
+  return html + '</ul>';
+}
+function vFestas() {
+  return `<input class="busca" id="busca" type="search" placeholder="Buscar por nome ou telefone" aria-label="Buscar por nome ou telefone" value="${esc(E.busca)}" autocomplete="off">
+    <div class="filtros">${FILTROS.map(([id, nome]) => `<button class="filtro" data-a="filtro" data-id="${id}" aria-pressed="${E.filtro === id}">${nome}</button>`).join('')}</div>
+    <div id="lista-festas">${listaFestas()}</div>`;
+}
+
+function vServicos() {
+  const linhas = E.servicos.map(s => {
+    const temPreco = s.preco_padrao !== null && s.custo_padrao !== null;
+    return `<li class="serv"><button class="serv-corpo" data-a="editar-servico" data-id="${s.id}">
+      <strong>${esc(s.nome)}${s.ativo ? '' : ' (desativado)'}</strong>
+      <small>${s.parceiro_padrao ? 'Parceiro: ' + esc(s.parceiro_padrao) : 'Sem parceiro definido'}</small>
+      <span class="serv-nums num"><span>Cliente paga<b>${s.preco_padrao !== null ? brl(s.preco_padrao) : 'A definir'}</b></span>
+        <span>Parceiro recebe<b>${s.custo_padrao !== null ? brl(s.custo_padrao) : 'A definir'}</b></span>
+        <span class="fica">Fica para nós<b>${temPreco ? brl(num(s.preco_padrao) - num(s.custo_padrao)) : 'A definir'}</b></span></span>
+    </button></li>`;
+  }).join('');
+  return `<div class="cal-topo"><h1>Serviços</h1></div>
+    <p class="nota" style="margin:0 0 14px">Lista do que pode ser oferecido nas festas. O parceiro, o preço e o custo cadastrados aqui já vêm preenchidos quando você adiciona o serviço em uma festa.</p>
+    ${linhas ? `<ul class="cartao lista">${linhas}</ul>` : `<div class="cartao vazio"><strong>Nenhum serviço cadastrado</strong></div>`}
+    <button class="bt largo" style="margin-top:14px" data-a="novo-servico">Cadastrar outro serviço</button>`;
+}
+
+function vFicha(id) {
+  const f = festaDe(id);
+  if (!f) return `<div class="cartao vazio" style="margin-top:24px"><strong>Festa não encontrada</strong>Ela pode ter sido excluída. <a href="#/festas">Ver todas as festas</a></div>`;
+  const pags = pagsDe(id), itens = itensDe(id);
+  const loc = num(f.valor_locacao);
+  const tServ = itens.reduce((s, i) => s + num(i.preco_cliente), 0);
+  const tCusto = itens.reduce((s, i) => s + num(i.custo_parceiro), 0);
+  const recebido = pags.filter(p => p.pago).reduce((s, p) => s + num(p.valor), 0);
+  const d = diasAte(f.data);
+  const tempo = f.status === 'cancelado' ? '' : f.status === 'consulta' ? `Data pedida, ${quando(f.data)}.` : d === 0 ? 'É hoje.' : d > 0 ? `Acontece ${quando(f.data)}.` : `Foi ${quando(f.data)}.`;
+  const temWhats = !!numeroWhats(f.cliente_telefone);
+
+  const blocoPag = pags.length ? `<ul class="cartao lista">${pags.map(p => {
+      const dv = diasAte(p.vencimento);
+      const linha = p.pago ? ['Recebido' + (p.pago_em ? ' em ' + fData(p.pago_em) : ''), p.forma].filter(Boolean).join(', ')
+        : dv < 0 ? `Venceu ${quando(p.vencimento)}, em ${fData(p.vencimento)}` : `Vence em ${fData(p.vencimento)}${dv <= 7 ? ' (' + quando(p.vencimento) + ')' : ''}`;
+      return `<li class="pag ${p.pago ? 'pago' : ''}"><div class="pag-corpo"><strong class="num">${p.tipo === 'sinal' ? 'Sinal' : 'Saldo'} ${brl(p.valor)}</strong>
+        <small class="${!p.pago && dv <= 0 && ATIVAS.includes(f.status) ? 'urgente' : ''}">${esc(linha)}</small></div>
+        <button class="bt pequeno ${p.pago ? '' : 'cheio'}" data-a="pagar" data-id="${p.id}">${p.pago ? 'Desfazer' : 'Marcar pago'}</button>
+        <button class="icone" data-a="editar-pag" data-id="${p.id}" aria-label="Editar ${p.tipo}">${I.lapis}</button></li>`;
+    }).join('')}</ul>`
+    : `<div class="cartao tudo-certo">${f.status === 'cancelado' ? 'Festa cancelada, sem pagamentos lançados.' : 'Ainda é uma consulta. Ao reservar a data, o sinal e o saldo são criados aqui.'}
+        ${f.status === 'consulta' ? `<button class="bt cheio largo" style="margin-top:12px" data-a="reservar" data-id="${f.id}">Reservar esta data</button>` : ''}</div>`;
+
+  const blocoServ = `<div class="cartao">${itens.length ? `<ul class="lista">${itens.map(i => `<li class="serv">
+        <button class="serv-corpo" data-a="editar-item" data-id="${i.id}"><strong>${esc(i.servico_nome)}</strong>
+          <small>${i.parceiro ? 'Parceiro: ' + esc(i.parceiro) : 'Parceiro ainda não definido'}</small>
+          <span class="serv-nums num"><span>Cliente paga<b>${brl(i.preco_cliente)}</b></span><span>Parceiro recebe<b>${brl(i.custo_parceiro)}</b></span><span class="fica">Fica para nós<b>${brl(i.margem)}</b></span></span></button>
+        <div class="marcas"><label class="marca"><input type="checkbox" data-m="conf" data-etapa="7d" data-id="${i.id}" ${i.confirmado_7d ? 'checked' : ''}>Confirmado 7 dias antes</label>
+          <label class="marca"><input type="checkbox" data-m="conf" data-etapa="2d" data-id="${i.id}" ${i.confirmado_2d ? 'checked' : ''}>Confirmado 2 dias antes</label></div></li>`).join('')}</ul>` : `<p class="tudo-certo">Nenhum serviço contratado nesta festa.</p>`}
+      <div class="rodape-bloco"><button class="bt largo" data-a="novo-item" data-id="${f.id}">Adicionar serviço</button></div></div>`;
+
+  return `<a class="voltar" href="#/festas" data-a="voltar">${I.esq}Voltar</a>
+    <header class="ficha-topo">
+      <h1>${esc(f.cliente_nome)}</h1>
+      <button class="bt-status" data-a="status" data-id="${f.id}" aria-label="Mudar situação, atual ${STATUS[f.status].nome}">${chip(f.status)}<small>mudar</small></button>
+      <p class="ficha-sub"><b>${fDataLonga(f.data)}</b>${dt(f.data).getFullYear() === new Date().getFullYear() ? ' de ' + dt(f.data).getFullYear() : ''}. ${tempo}</p>
+      <div class="acoes-ficha">
+        <button class="bt ouro" data-a="whats" data-id="${f.id}">${I.zap}WhatsApp</button>
+        <button class="bt" data-a="editar-festa" data-id="${f.id}">${I.lapis}Editar</button></div>
+    </header>
+
+    <section class="bloco"><h2>Dados</h2><dl class="cartao dados">
+      <div><dt>Telefone</dt><dd class="num">${f.cliente_telefone ? esc(fTel(f.cliente_telefone)) : 'Não informado'}</dd></div>
+      <div><dt>Tipo de evento</dt><dd>${f.tipo_evento ? esc(f.tipo_evento) : 'Não informado'}</dd></div>
+      <div><dt>Convidados</dt><dd class="num">${f.convidados ?? 'Não informado'}</dd></div>
+      <div><dt>Valor da locação</dt><dd class="num">${brl(loc)}</dd></div></dl>
+      ${f.observacoes ? `<p class="cartao obs" style="margin-top:10px">${esc(f.observacoes)}</p>` : ''}
+    </section>
+
+    <section class="bloco"><h2>Pagamentos da locação</h2>${blocoPag}
+      ${pags.length ? `<p class="nota">Sinal de 50% na reserva e saldo ${DIAS_SALDO_ANTES} dias antes da festa. Marcar como pago atualiza a situação da festa.</p>` : ''}</section>
+
+    <section class="bloco"><h2>Serviços contratados</h2>${blocoServ}</section>
+
+    <section class="bloco"><h2>Resumo</h2><dl class="cartao dados num">
+      <div><dt>Locação</dt><dd>${brl(loc)}</dd></div>
+      <div><dt>Serviços (preço ao cliente)</dt><dd>${brl(tServ)}</dd></div>
+      <div class="total"><dt>Total da festa</dt><dd>${brl(loc + tServ)}</dd></div>
+      <div><dt>Locação já recebida</dt><dd>${brl(recebido)}</dd></div>
+      ${itens.length ? `<div><dt>Repasse aos parceiros</dt><dd>${brl(tCusto)}</dd></div>
+      <div class="total"><dt>Fica para nós dos serviços</dt><dd>${brl(tServ - tCusto)}</dd></div>` : ''}</dl>
+      ${itens.length ? `<p class="nota">Os serviços não entram no sinal nem no saldo. Combine a cobrança deles direto com o cliente.</p>` : ''}
+    </section>
+    ${temWhats ? '' : `<p class="nota">Cadastre o telefone do cliente para usar o botão de WhatsApp.</p>`}
+    <div class="zona-perigo"><button class="bt perigo pequeno" data-a="excluir-festa" data-id="${f.id}">Excluir esta festa</button></div>`;
+}
+
+/* ---------- telas fora do app ---------- */
+const marcaPorta = `<div class="porta-marca">${I.folha}<small>CHÁCARA</small><span>ESPAÇO LAZER</span><i>Agenda de festas</i></div>`;
+function vFora() {
+  if (E.fase === 'login') return `<div class="porta">${marcaPorta}
+    <form data-form="login" novalidate>
+      <p class="erro" role="alert" hidden></p>
+      <label class="campo"><span>E-mail</span><input type="email" name="email" autocomplete="username" inputmode="email" required></label>
+      <label class="campo"><span>Senha</span><input type="password" name="senha" autocomplete="current-password" required></label>
+      <button class="bt cheio largo" type="submit">Entrar</button>
+    </form><p class="porta-pe">Esqueceu a senha? Peça uma nova para quem administra a agenda.</p></div>`;
+  if (E.fase === 'bloqueado') return `<div class="porta">${marcaPorta}<div class="caixa">
+      <h1>Acesso ainda não liberado</h1>
+      <p>Você entrou como <code>${esc(E.usuario && E.usuario.email)}</code>, mas esse e-mail não está na lista de pessoas com acesso.</p>
+      <p>Peça para quem administra a agenda adicionar seu e-mail em “Pessoas com acesso”.</p>
+      <div class="botoes"><button class="bt" data-a="sair">Sair</button><button class="bt cheio" data-a="tentar">Tentar de novo</button></div></div></div>`;
+  if (E.fase === 'erro') return `<div class="porta">${marcaPorta}<div class="caixa">
+      <h1>Não foi possível abrir a agenda</h1><p>${esc(E.erro)}</p>
+      <div class="botoes"><button class="bt" data-a="sair">Sair</button><button class="bt cheio" data-a="tentar">Tentar de novo</button></div></div></div>`;
+  return `<div class="porta">${marcaPorta}<div class="gira" role="status" aria-label="Carregando"></div></div>`;
+}
+
+function desenhar() {
+  const app = $('#app'), fora = $('#fora');
+  if (E.fase !== 'app') { app.hidden = true; fora.hidden = false; fora.innerHTML = vFora(); rotaDesenhada = null; return; }
+  fora.hidden = true; app.hidden = false;
+  const r = rota();
+  document.querySelectorAll('.nav a').forEach(a => {
+    const ativa = a.dataset.aba === r.aba || (r.aba === 'festa' && a.dataset.aba === 'festas');
+    if (ativa) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
+  });
+  const L = lembretes(), selo = $('#selo');
+  selo.hidden = !L.total; selo.textContent = L.total;
+  $('#nova').hidden = !['inicio', 'calendario', 'festas'].includes(r.aba);
+  if (r.aba === 'festas' && rotaDesenhada === location.hash && document.activeElement && document.activeElement.id === 'busca') {
+    $('#lista-festas').innerHTML = listaFestas();
+    return;
+  }
+  $('#tela').innerHTML = ({ inicio: vInicio, calendario: vCalendario, festas: vFestas, servicos: vServicos, festa: () => vFicha(r.id) })[r.aba]();
+  rotaDesenhada = location.hash;
+}
+
+/* ============================================================
+   REGRAS: festas, pagamentos e situação
+   ============================================================ */
+function conflito(data, status, idIgnorar) {
+  if (!RESERVA.includes(status)) return null;
+  return E.festas.find(f => f.id !== idIgnorar && f.data === data && RESERVA.includes(f.status)) || null;
+}
+function vencimentoSaldo(dataFesta) {
+  const h = hoje(), v = addDias(dataFesta, -DIAS_SALDO_ANTES);
+  return (v < h && dataFesta >= h) ? h : v;
+}
+
+async function sincronizarPagamentos(f, antes) {
+  const pags = pagsDe(f.id);
+  const loc = num(f.valor_locacao), h = hoje();
+  if (!pags.length) {
+    if (!RESERVA.includes(f.status)) return;
+    const vSinal = arred(loc / 2);
+    const sinalPago = ['sinal_pago', 'quitado', 'realizado'].includes(f.status);
+    const saldoPago = ['quitado', 'realizado'].includes(f.status);
+    const novos = await q(sb.from('pagamentos').insert([
+      { festa_id: f.id, tipo: 'sinal', valor: vSinal, vencimento: f.data < h ? f.data : h, pago: sinalPago },
+      { festa_id: f.id, tipo: 'saldo', valor: arred(loc - vSinal), vencimento: vencimentoSaldo(f.data), pago: saldoPago },
+    ]).select());
+    novos.forEach(p => troca('pagamentos', p));
+    return;
+  }
+  if (!antes) return;
+  const sinal = pags.find(p => p.tipo === 'sinal'), saldo = pags.find(p => p.tipo === 'saldo');
+  const mudouValor = num(antes.valor_locacao) !== loc, mudouData = antes.data !== f.data, mudouStatus = antes.status !== f.status;
+  const mudaSinal = {}, mudaSaldo = {};
+  if (sinal && !sinal.pago && mudouValor) mudaSinal.valor = arred(loc / 2);
+  const vSinal = mudaSinal.valor ?? (sinal ? num(sinal.valor) : 0);
+  if (saldo && !saldo.pago) {
+    if (mudouValor) mudaSaldo.valor = Math.max(0, arred(loc - vSinal));
+    if (mudouData) mudaSaldo.vencimento = vencimentoSaldo(f.data);
+  }
+  if (mudouStatus) {
+    if (sinal && !sinal.pago && ['sinal_pago', 'quitado'].includes(f.status)) { mudaSinal.pago = true; mudaSinal.pago_em = h; }
+    if (saldo && !saldo.pago && f.status === 'quitado') { mudaSaldo.pago = true; mudaSaldo.pago_em = h; }
+  }
+  if (sinal && Object.keys(mudaSinal).length) troca('pagamentos', await q(sb.from('pagamentos').update(mudaSinal).eq('id', sinal.id).select().single()));
+  if (saldo && Object.keys(mudaSaldo).length) troca('pagamentos', await q(sb.from('pagamentos').update(mudaSaldo).eq('id', saldo.id).select().single()));
+}
+
+async function gravarFesta(campos, id) {
+  const antes = id ? { ...festaDe(id) } : null;
+  const data = campos.data ?? antes.data, status = campos.status ?? antes.status;
+  const c = conflito(data, status, id);
+  if (c) throw new Amigavel(`Dia ${fData(data)} já está reservado para ${c.cliente_nome}. Só dá para registrar como consulta.`);
+  let f;
+  try {
+    f = id ? await q(sb.from('festas').update(campos).eq('id', id).select().single())
+           : await q(sb.from('festas').insert(campos).select().single());
+  } catch (e) { throw new Amigavel(msgErro(e)); }
+  troca('festas', f); ordenaFestas();
+  try { await sincronizarPagamentos(f, antes); } catch (e) { aviso('A festa foi salva, mas os pagamentos não atualizaram. ' + msgErro(e), true); }
+  return f;
+}
+
+async function alternarPagamento(pid) {
+  const p = E.pagamentos.find(x => x.id === pid); if (!p) return;
+  const novo = await q(sb.from('pagamentos').update({ pago: !p.pago, pago_em: p.pago ? null : hoje() }).eq('id', pid).select().single());
+  troca('pagamentos', novo);
+  const f = festaDe(p.festa_id);
+  if (f && ATIVAS.includes(f.status)) {
+    const pags = pagsDe(f.id), s = pags.find(x => x.tipo === 'sinal'), d = pags.find(x => x.tipo === 'saldo');
+    const alvo = (s && s.pago && d && d.pago) ? 'quitado' : ((s && s.pago) || (d && d.pago)) ? 'sinal_pago' : 'pre_reserva';
+    if (alvo !== f.status) {
+      troca('festas', await q(sb.from('festas').update({ status: alvo }).eq('id', f.id).select().single()));
+      aviso(`${novo.tipo === 'sinal' ? 'Sinal' : 'Saldo'} ${novo.pago ? 'marcado como pago' : 'voltou para pendente'}. Situação: ${STATUS[alvo].nome}.`);
+      return;
+    }
+  }
+  aviso(`${novo.tipo === 'sinal' ? 'Sinal' : 'Saldo'} ${novo.pago ? 'marcado como pago' : 'voltou para pendente'}.`);
+}
+
+/* ============================================================
+   FORMULÁRIOS
+   ============================================================ */
+const opcoes = (lista, atual) => lista.map(([v, t]) => `<option value="${esc(v)}" ${String(v) === String(atual ?? '') ? 'selected' : ''}>${esc(t)}</option>`).join('');
+
+function formFesta(f, dataInicial) {
+  const novo = !f;
+  f = f || { data: dataInicial || '', status: 'consulta', valor_locacao: VALOR_LOCACAO_PADRAO };
+  const tipoOutro = f.tipo_evento && !TIPOS.includes(f.tipo_evento);
+  abrirFolha(novo ? 'Nova festa' : 'Editar festa', `<form data-form="festa" data-id="${f.id || ''}" novalidate>
+    <p class="erro" role="alert" hidden></p>
+    <label class="campo"><span>Nome do cliente</span><input type="text" name="cliente_nome" value="${esc(f.cliente_nome)}" autocomplete="off" autocapitalize="words" required></label>
+    <label class="campo"><span>Telefone (WhatsApp)</span><input type="tel" name="cliente_telefone" value="${esc(f.cliente_telefone)}" placeholder="(11) 91234-5678" autocomplete="off"></label>
+    <div class="dupla">
+      <label class="campo"><span>Data da festa</span><input type="date" name="data" value="${esc(f.data)}" required></label>
+      <label class="campo"><span>Convidados</span><input type="number" name="convidados" value="${esc(f.convidados)}" min="0" inputmode="numeric"></label>
+    </div>
+    <label class="campo"><span>Tipo de evento</span><select name="tipo_sel">${opcoes([['', 'Escolha'], ...TIPOS.map(t => [t, t]), ['__outro', 'Outro']], tipoOutro ? '__outro' : f.tipo_evento)}</select></label>
+    <label class="campo" id="campo-tipo-outro" ${tipoOutro ? '' : 'hidden'}><span>Qual evento?</span><input type="text" name="tipo_outro" value="${tipoOutro ? esc(f.tipo_evento) : ''}"></label>
+    <label class="campo"><span>Valor da locação (R$)</span><input type="text" name="valor_locacao" value="${valorCampo(f.valor_locacao)}" inputmode="decimal" autocomplete="off"></label>
+    <label class="campo"><span>Situação</span><select name="status">${opcoes(Object.entries(STATUS).map(([k, v]) => [k, v.nome]), f.status)}</select>
+      <small>Consulta não ocupa a data. De pré-reserva em diante a data fica travada.</small></label>
+    <label class="campo"><span>Observações</span><textarea name="observacoes">${esc(f.observacoes)}</textarea></label>
+    <div class="botoes"><button class="bt" type="button" data-a="fechar">Cancelar</button><button class="bt cheio" type="submit">${novo ? 'Salvar festa' : 'Salvar alterações'}</button></div>
+  </form>`);
+}
+
+function formItem(festaId, item) {
+  const ativos = E.servicos.filter(s => s.ativo || (item && item.servico_id === s.id));
+  const sel = item ? (item.servico_id || '__outro') : '';
+  abrirFolha(item ? 'Editar serviço da festa' : 'Adicionar serviço', `<form data-form="item" data-festa="${festaId}" data-id="${item ? item.id : ''}" novalidate>
+    <p class="erro" role="alert" hidden></p>
+    <label class="campo"><span>Serviço</span><select name="servico_id" data-m="servico-sel">${opcoes([['', 'Escolha'], ...ativos.map(s => [s.id, s.nome]), ['__outro', 'Outro serviço']], sel)}</select></label>
+    <label class="campo" id="campo-serv-outro" ${sel === '__outro' ? '' : 'hidden'}><span>Nome do serviço</span><input type="text" name="servico_nome" value="${item && !item.servico_id ? esc(item.servico_nome) : ''}"></label>
+    <label class="campo"><span>Parceiro</span><input type="text" name="parceiro" value="${esc(item && item.parceiro)}" autocomplete="off"></label>
+    <div class="dupla">
+      <label class="campo"><span>Preço ao cliente (R$)</span><input type="text" name="preco_cliente" value="${valorCampo(item && item.preco_cliente)}" inputmode="decimal" data-m="margem" autocomplete="off"></label>
+      <label class="campo"><span>Custo do parceiro (R$)</span><input type="text" name="custo_parceiro" value="${valorCampo(item && item.custo_parceiro)}" inputmode="decimal" data-m="margem" autocomplete="off"></label>
+    </div>
+    <p class="fica-ao-vivo num" id="fica">Fica para nós: ${brl(item ? item.margem : 0)}</p>
+    <label class="campo"><span>Observações</span><textarea name="observacoes">${esc(item && item.observacoes)}</textarea></label>
+    <div class="botoes">${item ? `<button class="bt perigo" type="button" data-a="excluir-item" data-id="${item.id}">Remover</button>` : `<button class="bt" type="button" data-a="fechar">Cancelar</button>`}
+      <button class="bt cheio" type="submit">Salvar</button></div>
+  </form>`);
+}
+
+function formServico(s) {
+  abrirFolha(s ? 'Editar serviço' : 'Novo serviço', `<form data-form="servico" data-id="${s ? s.id : ''}" novalidate>
+    <p class="erro" role="alert" hidden></p>
+    <label class="campo"><span>Nome do serviço</span><input type="text" name="nome" value="${esc(s && s.nome)}" required autocomplete="off"></label>
+    <label class="campo"><span>Parceiro habitual</span><input type="text" name="parceiro_padrao" value="${esc(s && s.parceiro_padrao)}" autocomplete="off"></label>
+    <div class="dupla">
+      <label class="campo"><span>Preço ao cliente (R$)</span><input type="text" name="preco_padrao" value="${valorCampo(s && s.preco_padrao)}" inputmode="decimal" data-m="margem" autocomplete="off"></label>
+      <label class="campo"><span>Custo do parceiro (R$)</span><input type="text" name="custo_padrao" value="${valorCampo(s && s.custo_padrao)}" inputmode="decimal" data-m="margem" autocomplete="off"></label>
+    </div>
+    <p class="fica-ao-vivo num" id="fica">Fica para nós: ${brl(s ? num(s.preco_padrao) - num(s.custo_padrao) : 0)}</p>
+    <label class="marca" style="margin-bottom:8px"><input type="checkbox" name="ativo" ${!s || s.ativo ? 'checked' : ''}>Disponível para oferecer nas festas</label>
+    <div class="botoes"><button class="bt" type="button" data-a="fechar">Cancelar</button><button class="bt cheio" type="submit">Salvar</button></div>
+  </form>`);
+}
+
+function formPagamento(p) {
+  abrirFolha(p.tipo === 'sinal' ? 'Editar sinal' : 'Editar saldo', `<form data-form="pagamento" data-id="${p.id}" novalidate>
+    <p class="erro" role="alert" hidden></p>
+    <div class="dupla">
+      <label class="campo"><span>Valor (R$)</span><input type="text" name="valor" value="${valorCampo(p.valor)}" inputmode="decimal" autocomplete="off"></label>
+      <label class="campo"><span>Vencimento</span><input type="date" name="vencimento" value="${esc(p.vencimento)}" required></label>
+    </div>
+    <label class="campo"><span>Forma de pagamento</span><select name="forma">${opcoes([['', 'Não informada'], ...FORMAS.map(x => [x, x])], p.forma)}</select></label>
+    ${p.pago ? `<label class="campo"><span>Recebido em</span><input type="date" name="pago_em" value="${esc(p.pago_em)}"></label>` : ''}
+    <div class="botoes"><button class="bt" type="button" data-a="fechar">Cancelar</button><button class="bt cheio" type="submit">Salvar</button></div>
+  </form>`);
+}
+
+function folhaStatus(f) {
+  abrirFolha('Situação da festa', `<ul class="lista">${Object.entries(STATUS).map(([k, v]) => `<li>
+    <button class="opcao st-${k} ${k === f.status ? 'atual' : ''}" data-a="definir-status" data-id="${f.id}" data-status="${k}">
+      <i class="bola"></i><span><strong>${v.nome}${k === f.status ? ' (atual)' : ''}</strong><small>${v.dica}</small></span></button></li>`).join('')}</ul>`);
+}
+
+function folhaWhats(f) {
+  const msgs = mensagens(f);
+  if (!numeroWhats(f.cliente_telefone)) {
+    return abrirFolha('WhatsApp', `<p>Esta festa está sem telefone válido. Cadastre o número com DDD para abrir a conversa.</p>
+      <div class="botoes"><button class="bt cheio" data-a="editar-festa-da-folha" data-id="${f.id}">Cadastrar telefone</button></div>`);
+  }
+  abrirFolha('WhatsApp de ' + primeiroNome(f.cliente_nome), `<p class="nota" style="margin:0 0 12px">Escolha a mensagem. Ela abre pronta no WhatsApp e você pode mudar o texto antes de enviar.</p>
+    ${msgs.map(m => `<a class="bt largo" style="margin-top:10px" href="${esc(linkWhats(f.cliente_telefone, m.texto))}" target="_blank" rel="noopener">${I.zap}${m.titulo}</a><p class="previa">${esc(m.texto)}</p>`).join('')}
+    <a class="bt largo ouro" style="margin-top:10px" href="${esc(linkWhats(f.cliente_telefone))}" target="_blank" rel="noopener">${I.zap}Só abrir a conversa</a>`);
+}
+
+function folhaDia(data) {
+  const fs = E.festas.filter(f => f.data === data);
+  const ocupada = fs.some(f => RESERVA.includes(f.status));
+  const titulo = fDataLonga(data);
+  abrirFolha(titulo[0].toUpperCase() + titulo.slice(1), `<ul class="cartao lista">${fs.map(linhaFesta).join('')}</ul>
+    <button class="bt largo ${ocupada ? '' : 'cheio'}" style="margin-top:14px" data-a="nova-festa-dia" data-data="${data}">${ocupada ? 'Registrar consulta para esta data' : 'Lançar festa nesta data'}</button>
+    ${ocupada ? `<p class="nota">A data já está reservada. Dá para anotar quem mais procurou por ela, como consulta.</p>` : ''}`);
+}
+
+function folhaMenu() {
+  abrirFolha('Conta e acesso', `<p class="nota" style="margin:0 0 10px">Você entrou como <b>${esc(E.usuario.email)}</b></p>
+    <ul class="lista">
+      <li><button class="opcao" data-a="pessoas"><span><strong>Pessoas com acesso</strong><small>Quem pode ver e editar a agenda</small></span></button></li>
+      <li><button class="opcao" data-a="trocar-senha"><span><strong>Trocar minha senha</strong></span></button></li>
+      <li><button class="opcao" data-a="atualizar"><span><strong>Atualizar os dados agora</strong><small>A agenda já se atualiza sozinha a cada minuto</small></span></button></li>
+      <li><button class="opcao" data-a="sair"><span><strong>Sair</strong></span></button></li>
+    </ul>`);
+}
+
+function corpoPessoas() {
+  const eu = (E.usuario.email || '').toLowerCase();
+  return `<ul class="lista">${E.usuarios.map(u => `<li class="pessoa"><div><strong>${esc(u.nome || u.email)}</strong><small>${esc(u.email)}${u.email === eu ? ' (você)' : ''}</small></div>
+      ${u.email === eu ? '' : `<button class="bt pequeno perigo" data-a="tirar-pessoa" data-email="${esc(u.email)}">Tirar</button>`}</li>`).join('')}</ul>
+    <form data-form="pessoa" novalidate style="margin-top:16px">
+      <p class="erro" role="alert" hidden></p>
+      <label class="campo"><span>Nome</span><input type="text" name="nome" autocomplete="off"></label>
+      <label class="campo"><span>E-mail</span><input type="email" name="email" inputmode="email" autocomplete="off" required></label>
+      <button class="bt cheio largo" type="submit">Liberar acesso</button>
+      <p class="nota">Além de estar nesta lista, a pessoa precisa ter um login (e-mail e senha) criado no Supabase, em Authentication, Users.</p>
+    </form>`;
+}
+
+/* ============================================================
+   AÇÕES
+   ============================================================ */
+let ocupado = false;
+async function tentar(fn) {
+  if (ocupado) return;
+  ocupado = true;
+  try { await fn(); } catch (e) { aviso(e instanceof Amigavel ? e.message : msgErro(e), true); }
+  finally { ocupado = false; }
+}
+
+const acoes = {
+  fechar: () => fecharFolha(),
+  'confirma-sim': async () => { const r = resolveConfirma; resolveConfirma = null; await fecharFolha(); if (r) r(true); },
+  voltar: (el, ev) => { if (Object.keys(rolagem).length) { ev.preventDefault(); history.back(); } },
+  ficha: async el => { await fecharTudo(); ir('#/festa/' + el.dataset.id); },
+  menu: () => folhaMenu(),
+  'nova-festa': () => formFesta(null),
+  'nova-festa-dia': async el => { const data = el.dataset.data; await fecharFolha(); formFesta(null, data); },
+  dia: el => { const data = el.dataset.data; if (E.festas.some(f => f.data === data)) folhaDia(data); else formFesta(null, data); },
+  mes: el => { const d = new Date(E.mes.ano, E.mes.mes + Number(el.dataset.passo), 1); E.mes = { ano: d.getFullYear(), mes: d.getMonth() }; desenhar(); },
+  'mes-hoje': () => { const d = new Date(); E.mes = { ano: d.getFullYear(), mes: d.getMonth() }; desenhar(); },
+  filtro: el => { E.filtro = el.dataset.id; desenhar(); },
+  'editar-festa': el => formFesta(festaDe(el.dataset.id)),
+  'editar-festa-da-folha': async el => { const id = el.dataset.id; await fecharFolha(); formFesta(festaDe(id)); },
+  status: el => folhaStatus(festaDe(el.dataset.id)),
+  whats: el => folhaWhats(festaDe(el.dataset.id)),
+  reservar: el => tentar(async () => { await gravarFesta({ status: 'pre_reserva' }, el.dataset.id); aviso('Data reservada. Sinal e saldo criados.'); desenhar(); }),
+  'definir-status': el => tentar(async () => {
+    const id = el.dataset.id, novo = el.dataset.status, f = festaDe(id);
+    if (novo === f.status) return fecharFolha();
+    await fecharFolha();
+    if (novo === 'cancelado' && !(await confirmar('Cancelar a festa?', `A data ${fData(f.data)} fica livre para outra reserva. Os pagamentos já lançados continuam registrados.`, 'Cancelar a festa', true))) return;
+    await gravarFesta({ status: novo }, id);
+    aviso('Situação: ' + STATUS[novo].nome + '.');
+    desenhar();
+  }),
+  'marcar-realizada': el => tentar(async () => { await gravarFesta({ status: 'realizado' }, el.dataset.id); aviso('Festa marcada como realizada.'); desenhar(); }),
+  'ja-ofereci': el => tentar(async () => { troca('festas', await q(sb.from('festas').update({ oferta_servicos_em: hoje() }).eq('id', el.dataset.id).select().single())); desenhar(); }),
+  pagar: el => tentar(async () => { await alternarPagamento(el.dataset.id); desenhar(); }),
+  'editar-pag': el => formPagamento(E.pagamentos.find(p => p.id === el.dataset.id)),
+  'novo-item': el => formItem(el.dataset.id, null),
+  'editar-item': el => { const it = E.itens.find(i => i.id === el.dataset.id); formItem(it.festa_id, it); },
+  'excluir-item': el => tentar(async () => {
+    const id = el.dataset.id;
+    await q(sb.from('festa_servicos').delete().eq('id', id));
+    E.itens = E.itens.filter(i => i.id !== id);
+    await fecharFolha(); aviso('Serviço removido da festa.'); desenhar();
+  }),
+  'confirmar-parceiro': el => tentar(async () => {
+    const campo = el.dataset.etapa === '2d' ? 'confirmado_2d' : 'confirmado_7d';
+    troca('itens', await q(sb.from('festa_servicos').update({ [campo]: true }).eq('id', el.dataset.id).select().single()));
+    aviso('Parceiro confirmado.'); desenhar();
+  }),
+  'novo-servico': () => formServico(null),
+  'editar-servico': el => formServico(E.servicos.find(s => s.id === el.dataset.id)),
+  'excluir-festa': el => tentar(async () => {
+    const f = festaDe(el.dataset.id);
+    if (!(await confirmar('Excluir esta festa?', `A festa de ${f.cliente_nome} em ${fData(f.data)} será apagada, com os serviços e pagamentos. Não dá para desfazer. Se o cliente desistiu, prefira mudar a situação para Cancelado.`, 'Excluir', true))) return;
+    await q(sb.from('festas').delete().eq('id', f.id));
+    E.festas = E.festas.filter(x => x.id !== f.id);
+    E.itens = E.itens.filter(x => x.festa_id !== f.id);
+    E.pagamentos = E.pagamentos.filter(x => x.festa_id !== f.id);
+    aviso('Festa excluída.'); location.replace('#/festas');
+  }),
+  pessoas: async () => { await fecharFolha(); abrirFolha('Pessoas com acesso', corpoPessoas()); },
+  'tirar-pessoa': el => tentar(async () => {
+    const email = el.dataset.email;
+    if (!(await confirmar('Tirar o acesso?', `${email} não vai mais conseguir ver nem editar a agenda.`, 'Tirar acesso', true))) return;
+    await q(sb.from('usuarios').delete().eq('email', email));
+    E.usuarios = E.usuarios.filter(u => u.email !== email);
+    const corpo = pilha.length && $('.folha-corpo', pilha[pilha.length - 1]);
+    if (corpo) corpo.innerHTML = corpoPessoas();
+    aviso('Acesso retirado.');
+  }),
+  'trocar-senha': async () => {
+    await fecharFolha();
+    abrirFolha('Trocar minha senha', `<form data-form="senha" novalidate><p class="erro" role="alert" hidden></p>
+      <label class="campo"><span>Nova senha</span><input type="password" name="s1" autocomplete="new-password" required><small>Pelo menos 8 caracteres.</small></label>
+      <label class="campo"><span>Repita a nova senha</span><input type="password" name="s2" autocomplete="new-password" required></label>
+      <div class="botoes"><button class="bt" type="button" data-a="fechar">Cancelar</button><button class="bt cheio" type="submit">Trocar senha</button></div></form>`);
+  },
+  atualizar: () => tentar(async () => { await fecharFolha(); aplicar(await buscarTudo()); desenhar(); aviso('Dados atualizados.'); }),
+  sair: async () => { await fecharTudo(); try { await sb.auth.signOut(); } catch (e) { /* segue para o login */ } E.usuario = null; E.fase = 'login'; desenhar(); },
+  tentar: () => iniciarSessao(),
+};
+
+const formularios = {
+  async login(d, form) {
+    const { data, error } = await sb.auth.signInWithPassword({ email: String(d.email).trim(), password: d.senha });
+    if (error) return erroForm(form, msgErro(error));
+    await entrar(data.session);
+  },
+  async festa(d, form) {
+    const id = form.dataset.id || null;
+    const nome = limpo(d.cliente_nome);
+    if (!nome) return erroForm(form, 'Preencha o nome do cliente.');
+    if (!d.data) return erroForm(form, 'Escolha a data da festa.');
+    const valor = lerValor(d.valor_locacao);
+    const campos = {
+      cliente_nome: nome, cliente_telefone: limpo(d.cliente_telefone), data: d.data,
+      tipo_evento: d.tipo_sel === '__outro' ? limpo(d.tipo_outro) : limpo(d.tipo_sel),
+      convidados: d.convidados === '' ? null : Math.max(0, parseInt(d.convidados, 10) || 0),
+      valor_locacao: valor ?? 0, status: d.status, observacoes: limpo(d.observacoes),
+    };
+    let f;
+    try { f = await gravarFesta(campos, id); } catch (e) { return erroForm(form, e.message); }
+    const dd = dt(f.data); E.mes = { ano: dd.getFullYear(), mes: dd.getMonth() };
+    await fecharFolha();
+    aviso(id ? 'Alterações salvas.' : 'Festa salva.');
+    if (!id) ir('#/festa/' + f.id); else desenhar();
+  },
+  async item(d, form) {
+    const id = form.dataset.id || null, festaId = form.dataset.festa;
+    const cat = E.servicos.find(s => s.id === d.servico_id);
+    const nome = cat ? cat.nome : limpo(d.servico_nome);
+    if (!nome) return erroForm(form, d.servico_id === '__outro' ? 'Escreva o nome do serviço.' : 'Escolha o serviço.');
+    const campos = {
+      festa_id: festaId, servico_id: cat ? cat.id : null, servico_nome: nome, parceiro: limpo(d.parceiro),
+      preco_cliente: lerValor(d.preco_cliente) ?? 0, custo_parceiro: lerValor(d.custo_parceiro) ?? 0, observacoes: limpo(d.observacoes),
+    };
+    const reg = id ? await q(sb.from('festa_servicos').update(campos).eq('id', id).select().single())
+                   : await q(sb.from('festa_servicos').insert(campos).select().single());
+    troca('itens', reg);
+    await fecharFolha(); aviso('Serviço salvo.'); desenhar();
+  },
+  async servico(d, form) {
+    const id = form.dataset.id || null;
+    const nome = limpo(d.nome);
+    if (!nome) return erroForm(form, 'Preencha o nome do serviço.');
+    const campos = { nome, parceiro_padrao: limpo(d.parceiro_padrao), preco_padrao: lerValor(d.preco_padrao), custo_padrao: lerValor(d.custo_padrao), ativo: d.ativo === 'on' };
+    if (!id) campos.ordem = E.servicos.reduce((m, s) => Math.max(m, s.ordem || 0), 0) + 1;
+    let reg;
+    try {
+      reg = id ? await q(sb.from('servicos').update(campos).eq('id', id).select().single())
+               : await q(sb.from('servicos').insert(campos).select().single());
+    } catch (e) { return erroForm(form, e.code === '23505' ? 'Já existe um serviço com esse nome.' : msgErro(e)); }
+    troca('servicos', reg);
+    await fecharFolha(); aviso('Serviço salvo.'); desenhar();
+  },
+  async pagamento(d, form) {
+    const valor = lerValor(d.valor);
+    if (valor === null) return erroForm(form, 'Preencha o valor.');
+    if (!d.vencimento) return erroForm(form, 'Escolha o vencimento.');
+    const campos = { valor, vencimento: d.vencimento, forma: limpo(d.forma) };
+    if ('pago_em' in d) campos.pago_em = d.pago_em || null;
+    troca('pagamentos', await q(sb.from('pagamentos').update(campos).eq('id', form.dataset.id).select().single()));
+    await fecharFolha(); aviso('Pagamento salvo.'); desenhar();
+  },
+  async pessoa(d, form) {
+    const email = String(d.email || '').trim().toLowerCase();
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return erroForm(form, 'Confira o e-mail digitado.');
+    if (E.usuarios.some(u => u.email === email)) return erroForm(form, 'Esse e-mail já tem acesso.');
+    const reg = await q(sb.from('usuarios').insert({ email, nome: limpo(d.nome) }).select().single());
+    E.usuarios.push(reg); E.usuarios.sort((a, b) => a.email.localeCompare(b.email));
+    $('.folha-corpo', pilha[pilha.length - 1]).innerHTML = corpoPessoas();
+    aviso('Acesso liberado para ' + email + '.');
+  },
+  async senha(d, form) {
+    if (String(d.s1).length < 8) return erroForm(form, 'A senha precisa ter pelo menos 8 caracteres.');
+    if (d.s1 !== d.s2) return erroForm(form, 'As duas senhas não são iguais.');
+    const { error } = await sb.auth.updateUser({ password: d.s1 });
+    if (error) return erroForm(form, msgErro(error));
+    await fecharFolha(); aviso('Senha trocada.');
+  },
+};
+
+/* ---------- eventos ---------- */
+document.addEventListener('click', ev => {
+  const fundo = ev.target.classList && ev.target.classList.contains('fundo') ? ev.target : null;
+  if (fundo) return void fecharFolha();
+  const el = ev.target.closest('[data-a]');
+  if (!el || el.disabled) return;
+  const fn = acoes[el.dataset.a];
+  if (fn) { if (el.tagName !== 'A') ev.preventDefault(); fn(el, ev); }
+});
+document.addEventListener('submit', async ev => {
+  const form = ev.target.closest('form[data-form]');
+  if (!form) return;
+  ev.preventDefault();
+  const fn = formularios[form.dataset.form], bt = $('[type=submit]', form);
+  if (!fn || (bt && bt.disabled)) return;
+  const erro = $('.erro', form); if (erro) erro.hidden = true;
+  if (bt) bt.disabled = true;
+  try { await fn(Object.fromEntries(new FormData(form).entries()), form); }
+  catch (e) { erroForm(form, msgErro(e)); }
+  finally { if (bt) bt.disabled = false; }
+});
+document.addEventListener('input', ev => {
+  const t = ev.target;
+  if (t.id === 'busca') { E.busca = t.value; $('#lista-festas').innerHTML = listaFestas(); return; }
+  if (t.dataset.m === 'margem') {
+    const form = t.closest('form'), campos = form.querySelectorAll('[data-m=margem]');
+    $('#fica', form).textContent = 'Fica para nós: ' + brl((lerValor(campos[0].value) ?? 0) - (lerValor(campos[1].value) ?? 0));
+  }
+});
+document.addEventListener('change', ev => {
+  const t = ev.target;
+  if (t.name === 'tipo_sel') $('#campo-tipo-outro').hidden = t.value !== '__outro';
+  if (t.dataset.m === 'servico-sel') {
+    const form = t.closest('form');
+    $('#campo-serv-outro', form).hidden = t.value !== '__outro';
+    const s = E.servicos.find(x => x.id === t.value);
+    if (s) {
+      form.parceiro.value = s.parceiro_padrao || '';
+      form.preco_cliente.value = valorCampo(s.preco_padrao);
+      form.custo_parceiro.value = valorCampo(s.custo_padrao);
+      $('#fica', form).textContent = 'Fica para nós: ' + brl(num(s.preco_padrao) - num(s.custo_padrao));
+    }
+  }
+  if (t.dataset.m === 'conf') {
+    const campo = t.dataset.etapa === '2d' ? 'confirmado_2d' : 'confirmado_7d', marcado = t.checked;
+    tentar(async () => {
+      try { troca('itens', await q(sb.from('festa_servicos').update({ [campo]: marcado }).eq('id', t.dataset.id).select().single())); }
+      catch (e) { t.checked = !marcado; throw e; }
+      desenhar();
+    });
+  }
+});
+document.addEventListener('keydown', ev => { if (ev.key === 'Escape' && pilha.length) fecharFolha(); });
+
+/* ---------- sessão e atualização automática ---------- */
+async function entrar(sessao) {
+  E.usuario = sessao.user; E.fase = 'carregando'; desenhar();
+  try {
+    const d = await buscarTudo(); fotografia = JSON.stringify(d); aplicar(d);
+    E.fase = E.usuarios.length ? 'app' : 'bloqueado';
+  } catch (e) {
+    const m = String(e && e.message || e);
+    E.erro = (e && (e.code === 'PGRST205' || e.code === '42P01' || e.code === '42501')) ? 'O banco de dados ainda não foi configurado. Rode o arquivo banco.sql no Supabase e tente de novo.' : msgErro(e);
+    console.error(m);
+    E.fase = 'erro';
+  }
+  desenhar();
+}
+async function iniciarSessao() {
+  E.fase = 'carregando'; desenhar();
+  try {
+    const { data } = await sb.auth.getSession();
+    if (data && data.session) return entrar(data.session);
+  } catch (e) { console.error(e); }
+  E.fase = 'login'; desenhar();
+}
+let fotografia = '';
+async function atualizarSozinho() {
+  if (E.fase !== 'app' || document.visibilityState !== 'visible' || pilha.length || ocupado) return;
+  try {
+    const d = await buscarTudo();
+    const nova = JSON.stringify(d);
+    if (pilha.length || ocupado) return;
+    if (nova !== fotografia) { fotografia = nova; aplicar(d); desenhar(); }
+  } catch (e) { /* tenta de novo no próximo ciclo */ }
+}
+
+(function ligar() {
+  if (!window.supabase) {
+    E.fase = 'erro'; E.erro = 'Não foi possível carregar a agenda. Confira a internet e abra de novo.';
+    return desenhar();
+  }
+  sb = window.supabase.createClient(URL_BANCO, CHAVE_PUBLICA);
+  sb.auth.onAuthStateChange(evento => {
+    if (evento === 'SIGNED_OUT' && E.fase !== 'login') setTimeout(() => { tiraFolhasAte(0); E.usuario = null; E.fase = 'login'; desenhar(); }, 0);
+  });
+  setInterval(atualizarSozinho, 60000);
+  document.addEventListener('visibilitychange', atualizarSozinho);
+  iniciarSessao();
+})();
+</script>
+</body>
+</html>
