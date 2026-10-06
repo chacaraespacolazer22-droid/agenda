@@ -55,10 +55,10 @@ a{color:var(--verde-2)}
 .bt-menu svg{width:22px;height:22px}
 #tela{padding:0 16px 150px;max-width:760px;margin:0 auto}
 .nav{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--verde);display:flex;padding-bottom:env(safe-area-inset-bottom);box-shadow:0 -6px 18px rgba(23,58,42,.18)}
-.nav a{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:9px 4px 8px;color:#b9c7bd;text-decoration:none;font-size:12px;font-weight:500;position:relative;min-height:58px}
+.nav a{flex:1 1 0;min-width:0;display:flex;flex-direction:column;align-items:center;gap:3px;padding:9px 2px 8px;color:#b9c7bd;text-decoration:none;font-size:11.5px;font-weight:500;position:relative;min-height:58px;white-space:nowrap}
 .nav svg{width:24px;height:24px}
 .nav a[aria-current=page]{color:var(--ouro-claro)}
-.nav a[aria-current=page]::before{content:"";position:absolute;top:0;left:28%;right:28%;height:3px;border-radius:0 0 3px 3px;background:var(--ouro-claro)}
+.nav a[aria-current=page]::before{content:"";position:absolute;top:0;left:26%;right:26%;height:3px;border-radius:0 0 3px 3px;background:var(--ouro-claro)}
 .nav .selo{position:absolute;top:5px;left:calc(50% + 6px);min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:var(--ouro-claro);color:var(--verde);font-size:11px;font-weight:700;line-height:18px;text-align:center}
 .nova{position:fixed;right:16px;bottom:calc(74px + env(safe-area-inset-bottom));z-index:15;background:var(--ouro-claro);color:var(--verde);font-weight:700;padding:14px 20px;border-radius:30px;box-shadow:0 6px 18px rgba(23,58,42,.3);display:flex;align-items:center;gap:8px}
 .nova svg{width:18px;height:18px}
@@ -146,6 +146,20 @@ a{color:var(--verde-2)}
 .dia.ocupado .pt{background:#fff;opacity:.85}
 .dia.so-cancel .n{text-decoration:line-through;color:var(--c-cancelado)}
 .legenda{display:flex;flex-wrap:wrap;gap:6px 8px;margin-top:14px}
+
+/* ---------- fechamento ---------- */
+.fech-mes{display:flex;align-items:center;justify-content:space-between;gap:8px;position:relative;z-index:1;margin-bottom:18px}
+.fech-mes h1{font:600 26px/1 var(--serif);text-transform:capitalize}
+.fech-mes .icone{color:var(--ouro-claro);border:1px solid rgba(220,194,138,.4)}
+.fech-rot{display:block;color:var(--ouro-claro);font-weight:600;font-size:14px;position:relative;z-index:1}
+.fech-num{display:block;font:600 52px/1.05 var(--serif);position:relative;z-index:1;margin:2px 0 8px}
+.fech-conta{color:#c5d2c8;font-size:15px;position:relative;z-index:1}
+.fech-conta b{color:var(--creme);font-weight:600}
+.festa-valor{flex:none;font-weight:600;text-align:right}
+.festa-valor small{display:block;font-weight:500;font-size:12.5px;color:var(--tinta-2)}
+.desp{display:flex;align-items:center;gap:12px;width:100%;padding:12px 14px;min-height:58px}
+.negativo{color:var(--perigo)}
+.capa .negativo{color:#f3b8ae}
 
 /* ---------- filtros ---------- */
 .busca{width:100%;margin-top:18px}
@@ -258,6 +272,8 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--verde);b
   #tela{padding:8px 36px 110px;max-width:880px;margin:0;width:100%}
   .capa{margin:22px 0 0;border-radius:24px;padding:26px 28px 30px}
   .capa-data{font-size:56px}
+  .fech-num{font-size:64px}
+  .nav a{white-space:normal}
   .nova{bottom:28px;right:32px}
   #avisos{bottom:96px}
   .fundo{align-items:center;padding:24px}
@@ -287,6 +303,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--verde);b
       <a href="#/calendario" data-aba="calendario"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5.500" width="16" height="14.500" rx="2.500"/><path d="M4 10h16M8.500 3.500v4M15.500 3.500v4"/></svg><span>Calendário</span></a>
       <a href="#/festas" data-aba="festas"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15.500c3.300 0 5.500-2.800 5.500-6.200S15.300 3.500 12 3.500 6.500 5.900 6.500 9.300s2.200 6.200 5.500 6.200Z"/><path d="M12 15.500v1.200m0 0c0 1.600 1.600 1.300 1.600 2.600 0 .9-.8 1.200-1.600 1.200"/></svg><span>Festas</span></a>
       <a href="#/servicos" data-aba="servicos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.500 17.500h17"/><path d="M5.500 17.500a6.500 6.500 0 0 1 13 0"/><path d="M12 11V9"/><circle cx="12" cy="8" r="1"/></svg><span>Serviços</span></a>
+      <a href="#/fechamento" data-aba="fechamento"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 19.5h15"/><path d="M7.5 16v-4M12 16V7M16.5 16v-6.5"/></svg><span>Fechamento</span></a>
     </nav>
   </aside>
   <main id="tela"></main>
@@ -384,13 +401,18 @@ const I = {
 let sb = null;
 const E = {
   fase: 'carregando', usuario: null, erro: null,
-  usuarios: [], festas: [], servicos: [], itens: [], pagamentos: [],
+  usuarios: [], festas: [], servicos: [], itens: [], pagamentos: [], despesas: [],
   mes: (() => { const d = new Date(); return { ano: d.getFullYear(), mes: d.getMonth() }; })(),
+  mesFech: (() => { const d = new Date(); return { ano: d.getFullYear(), mes: d.getMonth() }; })(),
   filtro: 'proximas', busca: '',
 };
 const festaDe = id => E.festas.find(f => f.id === id);
 const pagsDe = id => E.pagamentos.filter(p => p.festa_id === id).sort((a, b) => (a.tipo === 'sinal' ? 0 : 1) - (b.tipo === 'sinal' ? 0 : 1));
 const itensDe = id => E.itens.filter(i => i.festa_id === id);
+const despDe = id => E.despesas.filter(d => d.festa_id === id);
+// A despesa ligada a uma festa conta no mês da festa; a solta, no mês da própria data.
+const mesDaDespesa = d => { const f = d.festa_id && festaDe(d.festa_id); return (f ? f.data : d.data).slice(0, 7); };
+const soma = (lista, campo) => lista.reduce((s, x) => s + num(x[campo]), 0);
 const troca = (lista, reg) => { const i = E[lista].findIndex(x => x.id === reg.id); if (i >= 0) E[lista][i] = reg; else E[lista].push(reg); };
 const ordenaFestas = () => E.festas.sort((a, b) => a.data.localeCompare(b.data) || a.criado_em.localeCompare(b.criado_em));
 
@@ -398,14 +420,15 @@ class Amigavel extends Error {}
 async function q(consulta) { const { data, error } = await consulta; if (error) throw error; return data; }
 
 async function buscarTudo() {
-  const [usuarios, festas, servicos, itens, pagamentos] = await Promise.all([
+  const [usuarios, festas, servicos, itens, pagamentos, despesas] = await Promise.all([
     q(sb.from('usuarios').select('*').order('email')),
     q(sb.from('festas').select('*').order('data', { ascending: false })),
     q(sb.from('servicos').select('*').order('ordem').order('nome')),
     q(sb.from('festa_servicos').select('*').order('criado_em')),
     q(sb.from('pagamentos').select('*')),
+    q(sb.from('despesas').select('*').order('data', { ascending: false }).order('criado_em', { ascending: false })),
   ]);
-  return { usuarios, festas, servicos, itens, pagamentos };
+  return { usuarios, festas, servicos, itens, pagamentos, despesas };
 }
 function aplicar(d) { Object.assign(E, d); ordenaFestas(); }
 
@@ -484,7 +507,7 @@ const rolagem = {};
 function rota() {
   const [a, b] = location.hash.replace(/^#\/?/, '').split('/');
   if (a === 'festa' && b) return { aba: 'festa', id: b };
-  return { aba: ['inicio', 'calendario', 'festas', 'servicos'].includes(a) ? a : 'inicio' };
+  return { aba: ['inicio', 'calendario', 'festas', 'servicos', 'fechamento'].includes(a) ? a : 'inicio' };
 }
 function ir(hash) { if (location.hash === hash) desenhar(); else location.hash = hash; }
 function sincronizar() {
@@ -704,6 +727,8 @@ function vFicha(id) {
   const tServ = itens.reduce((s, i) => s + num(i.preco_cliente), 0);
   const tCusto = itens.reduce((s, i) => s + num(i.custo_parceiro), 0);
   const recebido = pags.filter(p => p.pago).reduce((s, p) => s + num(p.valor), 0);
+  const desp = despDe(id), tDesp = soma(desp, 'valor');
+  const sobra = RESERVA.includes(f.status) ? loc + tServ - tCusto - tDesp : f.status === 'cancelado' ? recebido - tDesp : null;
   const d = diasAte(f.data);
   const tempo = f.status === 'cancelado' ? '' : f.status === 'consulta' ? `Data pedida, ${quando(f.data)}.` : d === 0 ? 'É hoje.' : d > 0 ? `Acontece ${quando(f.data)}.` : `Foi ${quando(f.data)}.`;
   const temWhats = !!numeroWhats(f.cliente_telefone);
@@ -751,17 +776,242 @@ function vFicha(id) {
 
     <section class="bloco"><h2>Serviços contratados</h2>${blocoServ}</section>
 
+    <section class="bloco"><h2>Despesas desta festa</h2><div class="cartao">
+      ${desp.length ? `<ul class="lista">${desp.map(linhaDespesa).join('')}</ul>` : `<p class="tudo-certo">Nenhuma despesa lançada para esta festa.</p>`}
+      <div class="rodape-bloco"><button class="bt largo" data-a="nova-despesa" data-festa="${f.id}">Adicionar despesa</button></div></div>
+      <p class="nota">Limpeza, produtos e o que mais foi gasto por causa desta festa. Entra no fechamento do mês da festa.</p></section>
+
     <section class="bloco"><h2>Resumo</h2><dl class="cartao dados num">
       <div><dt>Locação</dt><dd>${brl(loc)}</dd></div>
       <div><dt>Serviços (preço ao cliente)</dt><dd>${brl(tServ)}</dd></div>
       <div class="total"><dt>Total da festa</dt><dd>${brl(loc + tServ)}</dd></div>
       <div><dt>Locação já recebida</dt><dd>${brl(recebido)}</dd></div>
       ${itens.length ? `<div><dt>Repasse aos parceiros</dt><dd>${brl(tCusto)}</dd></div>
-      <div class="total"><dt>Fica para nós dos serviços</dt><dd>${brl(tServ - tCusto)}</dd></div>` : ''}</dl>
+      <div class="total"><dt>Fica para nós dos serviços</dt><dd>${brl(tServ - tCusto)}</dd></div>` : ''}
+      ${desp.length ? `<div><dt>Despesas da festa</dt><dd>${brl(tDesp)}</dd></div>` : ''}
+      ${sobra !== null && (desp.length || itens.length || f.status === 'cancelado') ? `<div class="total"><dt>${f.status === 'cancelado' ? 'Sobra (sinal retido menos despesas)' : 'Sobra desta festa'}</dt><dd class="${sobra < 0 ? 'negativo' : ''}">${brl(sobra)}</dd></div>` : ''}</dl>
       ${itens.length ? `<p class="nota">Os serviços não entram no sinal nem no saldo. Combine a cobrança deles direto com o cliente.</p>` : ''}
     </section>
     ${temWhats ? '' : `<p class="nota">Cadastre o telefone do cliente para usar o botão de WhatsApp.</p>`}
     <div class="zona-perigo"><button class="bt perigo pequeno" data-a="excluir-festa" data-id="${f.id}">Excluir esta festa</button></div>`;
+}
+
+/* ---------- fechamento mensal ---------- */
+// Regra: a receita conta no mês da festa, não importa quando o sinal foi pago.
+// Festa cancelada com sinal pago: o sinal fica retido e conta como receita.
+function fechamento(chave) {
+  const h = hoje();
+  const desp = E.despesas.filter(d => mesDaDespesa(d) === chave);
+  const linhas = [];
+  let locacao = 0, servicos = 0, retido = 0, aReceber = 0, nFestas = 0, porVir = 0;
+  for (const f of E.festas) {
+    if (f.data.slice(0, 7) !== chave) continue;
+    const dFesta = soma(desp.filter(d => d.festa_id === f.id), 'valor');
+    if (RESERVA.includes(f.status)) {
+      const loc = num(f.valor_locacao), serv = soma(itensDe(f.id), 'margem');
+      locacao += loc; servicos += serv; nFestas++;
+      if (f.status !== 'realizado' && f.data >= h) porVir++;
+      aReceber += soma(pagsDe(f.id).filter(p => !p.pago), 'valor');
+      linhas.push({ f, loc, serv, receita: loc + serv, despesas: dFesta });
+    } else if (f.status === 'cancelado') {
+      const pago = soma(pagsDe(f.id).filter(p => p.pago), 'valor');
+      if (pago > 0 || dFesta > 0) { retido += pago; linhas.push({ f, cancelada: true, receita: pago, despesas: dFesta }); }
+    }
+  }
+  const despesas = soma(desp, 'valor'), receita = locacao + servicos + retido;
+  return { chave, linhas, desp, locacao, servicos, retido, receita, despesas, resultado: receita - despesas, aReceber, nFestas, porVir };
+}
+const chaveMes = (ano, mes) => { const d = new Date(ano, mes, 1); return `${d.getFullYear()}-${p2(d.getMonth() + 1)}`; };
+const nomeMes = chave => `${MESES[Number(chave.slice(5)) - 1]} de ${chave.slice(0, 4)}`;
+
+function linhaDespesa(d) {
+  const f = d.festa_id && festaDe(d.festa_id);
+  return `<li><button class="desp" data-a="editar-despesa" data-id="${d.id}">
+    <span class="festa-meio"><strong>${esc(d.descricao)}</strong><span>${fDataCurta(d.data)}${f ? ', festa de ' + esc(f.cliente_nome) : ''}</span></span>
+    <span class="festa-valor num">${brl(d.valor)}</span></button></li>`;
+}
+
+function textoFechamento(F) {
+  const l = [`Fechamento de ${nomeMes(F.chave)}, Chácara Espaço Lazer`, '', `Festas: ${F.nFestas}`, `Receita: ${brl(F.receita)}`, `  Locação: ${brl(F.locacao)}`];
+  if (F.servicos) l.push(`  Serviços (o que fica): ${brl(F.servicos)}`);
+  if (F.retido) l.push(`  Sinais de festas canceladas: ${brl(F.retido)}`);
+  l.push(`Despesas: ${brl(F.despesas)}`);
+  for (const d of F.desp) l.push(`  ${d.descricao}: ${brl(d.valor)}`);
+  l.push('', `Resultado das festas: ${brl(F.resultado)}`, '(sem custos fixos)');
+  if (F.aReceber) l.push(`Ainda a receber: ${brl(F.aReceber)}`);
+  if (F.porVir) l.push(`Mês em andamento: ${plural(F.porVir, 'festa ainda vai', 'festas ainda vão')} acontecer.`);
+  return l.join('\n');
+}
+
+function vFechamento() {
+  const { ano, mes } = E.mesFech;
+  const F = fechamento(chaveMes(ano, mes)), A = fechamento(chaveMes(ano, mes - 1));
+  const temAnterior = A.receita !== 0 || A.despesas !== 0;
+  const dif = F.resultado - A.resultado;
+  const festas = F.linhas.map(({ f, cancelada, loc, serv, receita, despesas }) => {
+    const d = dt(f.data);
+    const partes = cancelada ? [`Cancelada, sinal retido ${brl(receita)}`] : [`Locação ${brl(loc)}`];
+    if (serv) partes.push(`serviços ${brl(serv)}`);
+    if (despesas) partes.push(`despesas ${brl(despesas)}`);
+    const sobra = receita - despesas;
+    return `<li><button class="festa" data-a="ficha" data-id="${f.id}">
+      <span class="festa-dia st-${f.status}"><b>${d.getDate()}</b><i>${MESES_C[d.getMonth()]}</i></span>
+      <span class="festa-meio"><strong>${esc(f.cliente_nome)}</strong><span>${esc(partes.join(', '))}</span></span>
+      <span class="festa-valor num ${sobra < 0 ? 'negativo' : ''}">${brl(sobra)}</span></button></li>`;
+  }).join('');
+  return `<section class="capa">
+      <div class="fech-mes"><button class="icone" data-a="mes-fech" data-passo="-1" aria-label="Mês anterior">${I.esq}</button>
+        <h1>${MESES[mes]} ${ano}</h1>
+        <button class="icone" data-a="mes-fech" data-passo="1" aria-label="Próximo mês">${I.dir}</button></div>
+      <span class="fech-rot">Resultado das festas</span>
+      <strong class="fech-num num ${F.resultado < 0 ? 'negativo' : ''}" id="fech-resultado">${brl(F.resultado)}</strong>
+      <p class="fech-conta">Receita <b class="num">${brl(F.receita)}</b> menos despesas <b class="num">${brl(F.despesas)}</b>. Sem custos fixos.</p>
+    </section>
+    ${F.porVir ? `<p class="nota" style="margin-top:14px">Mês em andamento: ${plural(F.porVir, 'festa ainda vai', 'festas ainda vão')} acontecer. O resultado já inclui ${F.porVir === 1 ? 'o valor dela' : 'o valor delas'}.</p>` : ''}
+
+    <section class="bloco"><h2>Festas do mês${F.nFestas ? `<span class="conta">${F.nFestas}</span>` : ''}</h2>
+      ${festas ? `<ul class="cartao lista">${festas}</ul><p class="nota">O valor à direita é o que sobra de cada festa: receita menos as despesas ligadas a ela.</p>`
+        : `<div class="cartao vazio">Nenhuma festa reservada em ${MESES[mes]}.</div>`}
+    </section>
+
+    <section class="bloco"><h2>Despesas${F.desp.length ? `<span class="conta">${F.desp.length}</span>` : ''}</h2>
+      <div class="cartao">${F.desp.length ? `<ul class="lista">${F.desp.map(linhaDespesa).join('')}</ul>` : `<p class="tudo-certo">Nenhuma despesa lançada em ${MESES[mes]}.</p>`}
+        <div class="rodape-bloco"><button class="bt largo" data-a="nova-despesa">Adicionar despesa</button></div></div>
+    </section>
+
+    <section class="bloco"><h2>Resumo</h2><dl class="cartao dados num">
+      <div><dt>Locação</dt><dd>${brl(F.locacao)}</dd></div>
+      ${F.servicos ? `<div><dt>Serviços (o que fica para nós)</dt><dd>${brl(F.servicos)}</dd></div>` : ''}
+      ${F.retido ? `<div><dt>Sinais de festas canceladas</dt><dd>${brl(F.retido)}</dd></div>` : ''}
+      <div><dt>Despesas</dt><dd>${brl(F.despesas)}</dd></div>
+      <div class="total"><dt>Resultado das festas</dt><dd class="${F.resultado < 0 ? 'negativo' : ''}">${brl(F.resultado)}</dd></div>
+      ${F.nFestas ? `<div><dt>Média por festa</dt><dd>${brl(arred(F.resultado / F.nFestas))}</dd></div>` : ''}
+      ${temAnterior ? `<div><dt>${MESES[(mes + 11) % 12][0].toUpperCase() + MESES[(mes + 11) % 12].slice(1)} (mês anterior)</dt><dd>${brl(A.resultado)}</dd></div>
+      <div><dt>Diferença para o mês anterior</dt><dd class="${dif < 0 ? 'negativo' : ''}">${dif > 0 ? '+' : ''}${brl(dif)}</dd></div>` : ''}
+      ${F.aReceber ? `<div><dt>Ainda a receber das festas do mês</dt><dd>${brl(F.aReceber)}</dd></div>` : ''}</dl>
+      <a class="bt largo ouro" style="margin-top:14px" href="https://wa.me/?text=${encodeURIComponent(textoFechamento(F))}" target="_blank" rel="noopener">${I.zap}Enviar resumo pelo WhatsApp</a>
+    </section>
+
+    <section class="bloco"><h2>Backup</h2><div class="cartao tudo-certo">
+      <p>Baixa todos os dados da agenda em planilhas. Vale fazer a cada fechamento e guardar o arquivo em lugar seguro.</p>
+      <p class="nota">${textoUltimoBackup()}</p>
+      <button class="bt largo" style="margin-top:12px" data-a="backup">Baixar backup dos dados</button></div>
+    </section>`;
+}
+
+function formDespesa(d, festaId) {
+  const h = hoje(), atual = h.slice(0, 7), visto = chaveMes(E.mesFech.ano, E.mesFech.mes);
+  let dataPadrao = h;
+  if (!d && !festaId && rota().aba === 'fechamento' && visto !== atual) {
+    dataPadrao = visto < atual ? iso(new Date(E.mesFech.ano, E.mesFech.mes + 1, 0)) : visto + '-01';
+  }
+  const sel = d ? d.festa_id : festaId;
+  const meses = [visto, chaveMes(E.mesFech.ano, E.mesFech.mes - 1), atual];
+  const candidatas = E.festas.filter(f => f.id === sel || (f.status !== 'consulta' && meses.includes(f.data.slice(0, 7))))
+    .sort((a, b) => b.data.localeCompare(a.data));
+  const freq = {};
+  for (const x of E.despesas) freq[x.descricao] = (freq[x.descricao] || 0) + 1;
+  const sugestoes = Object.keys(freq).sort((a, b) => freq[b] - freq[a]).slice(0, 12);
+  abrirFolha(d ? 'Editar despesa' : 'Nova despesa', `<form data-form="despesa" data-id="${d ? d.id : ''}" novalidate>
+    <p class="erro" role="alert" hidden></p>
+    <label class="campo"><span>O que foi</span><input type="text" name="descricao" value="${esc(d && d.descricao)}" list="sug-desp" placeholder="Ex.: limpeza da piscina" autocomplete="off" autocapitalize="sentences" required>
+      <datalist id="sug-desp">${sugestoes.map(s => `<option value="${esc(s)}"></option>`).join('')}</datalist></label>
+    <div class="dupla">
+      <label class="campo"><span>Valor (R$)</span><input type="text" name="valor" value="${valorCampo(d && d.valor)}" inputmode="decimal" autocomplete="off"></label>
+      <label class="campo"><span>Data</span><input type="date" name="data" value="${esc(d ? d.data : dataPadrao)}" required></label>
+    </div>
+    <label class="campo"><span>De qual festa? (opcional)</span><select name="festa_id">${opcoes([['', 'Nenhuma, despesa geral'], ...candidatas.map(f => [f.id, `${fDataCurta(f.data)} ${f.cliente_nome}`])], sel)}</select>
+      <small>Escolhendo a festa, a despesa conta no mês da festa e aparece na ficha dela.</small></label>
+    <div class="botoes">${d ? `<button class="bt perigo" type="button" data-a="excluir-despesa" data-id="${d.id}">Remover</button>` : `<button class="bt" type="button" data-a="fechar">Cancelar</button>`}
+      <button class="bt cheio" type="submit">Salvar</button></div>
+  </form>`);
+}
+
+/* ---------- backup em planilhas ---------- */
+function textoUltimoBackup() {
+  let v = null;
+  try { v = localStorage.getItem('agenda-ultimo-backup'); } catch (e) { /* sem armazenamento */ }
+  return v ? `Último backup feito neste aparelho: ${fData(v)}.` : 'Ainda não foi feito backup neste aparelho.';
+}
+function planilha(colunas, linhas) {
+  const cel = v => {
+    if (v === null || v === undefined) return '';
+    if (typeof v === 'number') return String(v).replace('.', ',');
+    if (typeof v === 'boolean') return v ? 'sim' : 'não';
+    let s = String(v);
+    if (/^[=+\-@]/.test(s)) s = ' ' + s;                    // não deixa o Excel ler como fórmula
+    return /[";\n\r]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
+  };
+  return '﻿' + [colunas, ...linhas].map(l => l.map(cel).join(';')).join('\r\n') + '\r\n';
+}
+const TAB_CRC = (() => { const t = new Uint32Array(256); for (let n = 0; n < 256; n++) { let c = n; for (let k = 0; k < 8; k++) c = c & 1 ? 0xEDB88320 ^ (c >>> 1) : c >>> 1; t[n] = c >>> 0; } return t; })();
+const crc32 = b => { let c = 0xFFFFFFFF; for (let i = 0; i < b.length; i++) c = TAB_CRC[(c ^ b[i]) & 0xFF] ^ (c >>> 8); return (c ^ 0xFFFFFFFF) >>> 0; };
+function zipar(arquivos) {
+  const enc = new TextEncoder(), partes = [], central = [], agora = new Date();
+  const hora = (agora.getHours() << 11) | (agora.getMinutes() << 5) | (agora.getSeconds() >> 1);
+  const dia = ((agora.getFullYear() - 1980) << 9) | ((agora.getMonth() + 1) << 5) | agora.getDate();
+  let pos = 0;
+  for (const a of arquivos) {
+    const nome = enc.encode(a.nome), dados = enc.encode(a.texto), crc = crc32(dados), n = dados.length;
+    const cab = new DataView(new ArrayBuffer(30));
+    cab.setUint32(0, 0x04034b50, true); cab.setUint16(4, 20, true); cab.setUint16(6, 0x0800, true);
+    cab.setUint16(10, hora, true); cab.setUint16(12, dia, true); cab.setUint32(14, crc, true);
+    cab.setUint32(18, n, true); cab.setUint32(22, n, true); cab.setUint16(26, nome.length, true);
+    partes.push(new Uint8Array(cab.buffer), nome, dados);
+    const c = new DataView(new ArrayBuffer(46));
+    c.setUint32(0, 0x02014b50, true); c.setUint16(4, 20, true); c.setUint16(6, 20, true); c.setUint16(8, 0x0800, true);
+    c.setUint16(12, hora, true); c.setUint16(14, dia, true); c.setUint32(16, crc, true);
+    c.setUint32(20, n, true); c.setUint32(24, n, true); c.setUint16(28, nome.length, true); c.setUint32(42, pos, true);
+    central.push(new Uint8Array(c.buffer), nome);
+    pos += 30 + nome.length + n;
+  }
+  const tamCentral = central.reduce((s, p) => s + p.length, 0);
+  const fim = new DataView(new ArrayBuffer(22));
+  fim.setUint32(0, 0x06054b50, true); fim.setUint16(8, arquivos.length, true); fim.setUint16(10, arquivos.length, true);
+  fim.setUint32(12, tamCentral, true); fim.setUint32(16, pos, true);
+  return new Blob([...partes, ...central, new Uint8Array(fim.buffer)], { type: 'application/zip' });
+}
+async function baixarBackup() {
+  aplicar(await buscarTudo());                               // garante os dados mais recentes
+  const dataBr = s => s ? fData(s) : '';
+  const festa = id => festaDe(id) || {};
+  const arquivos = [
+    { nome: 'festas.csv', texto: planilha(
+      ['Data da festa', 'Cliente', 'Telefone', 'Tipo de evento', 'Convidados', 'Valor da locação', 'Situação', 'Sinal', 'Sinal pago', 'Sinal recebido em', 'Saldo', 'Saldo pago', 'Saldo recebido em', 'Serviços (cliente paga)', 'Repasse a parceiros', 'Despesas da festa', 'Observações', 'Código'],
+      E.festas.map(f => { const p = pagsDe(f.id), s = p.find(x => x.tipo === 'sinal'), d = p.find(x => x.tipo === 'saldo'), it = itensDe(f.id);
+        return [dataBr(f.data), f.cliente_nome, f.cliente_telefone, f.tipo_evento, f.convidados, num(f.valor_locacao), STATUS[f.status].nome,
+          s ? num(s.valor) : null, s ? s.pago : null, s ? dataBr(s.pago_em) : null, d ? num(d.valor) : null, d ? d.pago : null, d ? dataBr(d.pago_em) : null,
+          soma(it, 'preco_cliente'), soma(it, 'custo_parceiro'), soma(despDe(f.id), 'valor'), f.observacoes, f.id]; })) },
+    { nome: 'pagamentos.csv', texto: planilha(
+      ['Data da festa', 'Cliente', 'Tipo', 'Valor', 'Vencimento', 'Pago', 'Recebido em', 'Forma', 'Código da festa'],
+      E.pagamentos.map(p => [dataBr(festa(p.festa_id).data), festa(p.festa_id).cliente_nome, p.tipo, num(p.valor), dataBr(p.vencimento), p.pago, dataBr(p.pago_em), p.forma, p.festa_id])) },
+    { nome: 'servicos_das_festas.csv', texto: planilha(
+      ['Data da festa', 'Cliente', 'Serviço', 'Parceiro', 'Preço ao cliente', 'Custo do parceiro', 'Fica para nós', 'Confirmado 7 dias antes', 'Confirmado 2 dias antes', 'Observações', 'Código da festa'],
+      E.itens.map(i => [dataBr(festa(i.festa_id).data), festa(i.festa_id).cliente_nome, i.servico_nome, i.parceiro, num(i.preco_cliente), num(i.custo_parceiro), num(i.margem), i.confirmado_7d, i.confirmado_2d, i.observacoes, i.festa_id])) },
+    { nome: 'despesas.csv', texto: planilha(
+      ['Data', 'O que foi', 'Valor', 'Festa (cliente)', 'Data da festa', 'Mês do fechamento', 'Código da festa'],
+      E.despesas.map(d => [dataBr(d.data), d.descricao, num(d.valor), festa(d.festa_id).cliente_nome, dataBr(festa(d.festa_id).data), mesDaDespesa(d).split('-').reverse().join('/'), d.festa_id])) },
+    { nome: 'catalogo_de_servicos.csv', texto: planilha(
+      ['Serviço', 'Parceiro habitual', 'Preço ao cliente', 'Custo do parceiro', 'Ativo'],
+      E.servicos.map(s => [s.nome, s.parceiro_padrao, s.preco_padrao === null ? null : num(s.preco_padrao), s.custo_padrao === null ? null : num(s.custo_padrao), s.ativo])) },
+  ];
+  const nome = `agenda-espaco-lazer-backup-${hoje()}.zip`, blob = zipar(arquivos);
+  let entregue = false;
+  const toque = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
+  if (toque && navigator.canShare) {
+    const arq = new File([blob], nome, { type: 'application/zip' });
+    if (navigator.canShare({ files: [arq] })) {
+      try { await navigator.share({ files: [arq], title: 'Backup da agenda' }); entregue = true; }
+      catch (e) { if (e && e.name === 'AbortError') return aviso('Backup cancelado.'); }
+    }
+  }
+  if (!entregue) {
+    const url = URL.createObjectURL(blob), a = document.createElement('a');
+    a.href = url; a.download = nome; document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 60000);
+  }
+  try { localStorage.setItem('agenda-ultimo-backup', hoje()); } catch (e) { /* sem armazenamento */ }
+  aviso('Backup gerado. Guarde o arquivo em lugar seguro.');
 }
 
 /* ---------- telas fora do app ---------- */
@@ -796,12 +1046,15 @@ function desenhar() {
   });
   const L = lembretes(), selo = $('#selo');
   selo.hidden = !L.total; selo.textContent = L.total;
-  $('#nova').hidden = !['inicio', 'calendario', 'festas'].includes(r.aba);
+  const nova = $('#nova'), naFech = r.aba === 'fechamento';
+  nova.hidden = !['inicio', 'calendario', 'festas', 'fechamento'].includes(r.aba);
+  nova.dataset.a = naFech ? 'nova-despesa' : 'nova-festa';
+  nova.lastChild.textContent = naFech ? 'Nova despesa' : 'Nova festa';
   if (r.aba === 'festas' && rotaDesenhada === location.hash && document.activeElement && document.activeElement.id === 'busca') {
     $('#lista-festas').innerHTML = listaFestas();
     return;
   }
-  $('#tela').innerHTML = ({ inicio: vInicio, calendario: vCalendario, festas: vFestas, servicos: vServicos, festa: () => vFicha(r.id) })[r.aba]();
+  $('#tela').innerHTML = ({ inicio: vInicio, calendario: vCalendario, festas: vFestas, servicos: vServicos, fechamento: vFechamento, festa: () => vFicha(r.id) })[r.aba]();
   rotaDesenhada = location.hash;
 }
 
@@ -987,6 +1240,7 @@ function folhaMenu() {
     <ul class="lista">
       <li><button class="opcao" data-a="pessoas"><span><strong>Pessoas com acesso</strong><small>Quem pode ver e editar a agenda</small></span></button></li>
       <li><button class="opcao" data-a="trocar-senha"><span><strong>Trocar minha senha</strong></span></button></li>
+      <li><button class="opcao" data-a="backup"><span><strong>Baixar backup dos dados</strong><small>${textoUltimoBackup()}</small></span></button></li>
       <li><button class="opcao" data-a="atualizar"><span><strong>Atualizar os dados agora</strong><small>A agenda já se atualiza sozinha a cada minuto</small></span></button></li>
       <li><button class="opcao" data-a="sair"><span><strong>Sair</strong></span></button></li>
     </ul>`);
@@ -1059,6 +1313,16 @@ const acoes = {
     troca('itens', await q(sb.from('festa_servicos').update({ [campo]: true }).eq('id', el.dataset.id).select().single()));
     aviso('Parceiro confirmado.'); desenhar();
   }),
+  'mes-fech': el => { const d = new Date(E.mesFech.ano, E.mesFech.mes + Number(el.dataset.passo), 1); E.mesFech = { ano: d.getFullYear(), mes: d.getMonth() }; desenhar(); },
+  'nova-despesa': el => formDespesa(null, el.dataset.festa || null),
+  'editar-despesa': el => formDespesa(E.despesas.find(d => d.id === el.dataset.id), null),
+  'excluir-despesa': el => tentar(async () => {
+    const id = el.dataset.id;
+    await q(sb.from('despesas').delete().eq('id', id));
+    E.despesas = E.despesas.filter(d => d.id !== id);
+    await fecharFolha(); aviso('Despesa removida.'); desenhar();
+  }),
+  backup: () => tentar(async () => { await fecharTudo(); await baixarBackup(); desenhar(); }),
   'novo-servico': () => formServico(null),
   'editar-servico': el => formServico(E.servicos.find(s => s.id === el.dataset.id)),
   'excluir-festa': el => tentar(async () => {
@@ -1068,6 +1332,7 @@ const acoes = {
     E.festas = E.festas.filter(x => x.id !== f.id);
     E.itens = E.itens.filter(x => x.festa_id !== f.id);
     E.pagamentos = E.pagamentos.filter(x => x.festa_id !== f.id);
+    E.despesas.forEach(x => { if (x.festa_id === f.id) x.festa_id = null; });
     aviso('Festa excluída.'); location.replace('#/festas');
   }),
   pessoas: async () => { await fecharFolha(); abrirFolha('Pessoas com acesso', corpoPessoas()); },
@@ -1145,6 +1410,19 @@ const formularios = {
     troca('servicos', reg);
     await fecharFolha(); aviso('Serviço salvo.'); desenhar();
   },
+  async despesa(d, form) {
+    const id = form.dataset.id || null;
+    const descricao = limpo(d.descricao), valor = lerValor(d.valor);
+    if (!descricao) return erroForm(form, 'Escreva o que foi a despesa.');
+    if (valor === null) return erroForm(form, 'Preencha o valor.');
+    if (!d.data) return erroForm(form, 'Escolha a data.');
+    const campos = { descricao, valor, data: d.data, festa_id: d.festa_id || null };
+    const reg = id ? await q(sb.from('despesas').update(campos).eq('id', id).select().single())
+                   : await q(sb.from('despesas').insert(campos).select().single());
+    troca('despesas', reg);
+    E.despesas.sort((a, b) => b.data.localeCompare(a.data) || b.criado_em.localeCompare(a.criado_em));
+    await fecharFolha(); aviso('Despesa salva.'); desenhar();
+  },
   async pagamento(d, form) {
     const valor = lerValor(d.valor);
     if (valor === null) return erroForm(form, 'Preencha o valor.');
@@ -1195,6 +1473,8 @@ document.addEventListener('submit', async ev => {
 });
 document.addEventListener('input', ev => {
   const t = ev.target;
+  const erroAberto = t.form && t.form.querySelector('.erro:not([hidden])');
+  if (erroAberto) erroAberto.hidden = true;
   if (t.id === 'busca') { E.busca = t.value; $('#lista-festas').innerHTML = listaFestas(); return; }
   if (t.dataset.m === 'margem') {
     const form = t.closest('form'), campos = form.querySelectorAll('[data-m=margem]');
